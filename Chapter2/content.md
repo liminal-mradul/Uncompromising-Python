@@ -515,3 +515,163 @@ Thank You!
 ```
 
 **Your task now is to write the Python code for this challenge.** This immediate application of knowledge is crucial for solidifying your understanding and transforming concepts into skills.
+
+### 🔹 5. Writing Your First CLI Script: The Terminal Stage
+
+You've learned how to engage in a direct dialogue with your program using `input()` and how to craft eloquent responses with `print()` and f-strings. These are powerful capabilities, but so far, you've primarily used them within the interactive Python REPL or by directly running a `.py` file from your editor. Now, it's time to elevate your code.
+
+🎬 You’ve met `input()` and `print()` — now let’s give them a stage: the terminal.
+
+The terminal, or command-line interface (CLI), is the native environment for many powerful Python applications and tools. Mastering how your scripts interact with the CLI is a fundamental step towards building practical, reusable utilities that feel like real tools.
+
+#### What’s a Script? The Codified Command
+
+At its simplest, a **script** is a file containing a sequence of commands or instructions for a computer program (in our case, the Python interpreter) to execute. Unlike the interactive REPL, where commands are executed one by one, a script bundles all your instructions together. When you run a script, the interpreter reads it from top to bottom, executing each line in order.
+
+Think of it as writing down a precise set of instructions for your assistant. Once written, you just tell the assistant (your Python interpreter) to "run these instructions," and it executes them automatically. This is the essence of automation and building reusable tools.
+
+#### Saving Code as `.py` and Running from the Terminal: The Direct Invocation
+
+You've already done this briefly in Chapter 1, but let's reinforce it as a core habit. All Python script files use the `.py` file extension. This is the convention that identifies them as Python code.
+
+1.  **Create your script file:**
+    Use your chosen code editor (VS Code is ideal) to create a new file and save it with a `.py` extension. For this example, let's create a file named `greet.py`.
+
+2.  **Navigate to the script's directory:**
+    Open your terminal (PowerShell on Windows, Terminal.app on macOS, your preferred terminal on Linux). Use the `cd` command to navigate to the directory where you saved your `greet.py` file. (Remember your `venv` should be activated\!)
+
+    ```bash
+    # Example for navigating to a project folder, if not already there
+    cd path/to/your/project/my_first_python_command
+    ```
+
+3.  **Run the script:**
+    Once in the correct directory with your `venv` active, you directly invoke the Python interpreter to run your script.
+
+      * **On Windows (PowerShell/CMD):**
+
+        ```powershell
+        (venv) python greet.py
+        ```
+
+      * **On macOS/Linux (Bash/Zsh):**
+
+        ```bash
+        (venv) python3.12 greet.py # Or python3.x, or simply 'python' if pyenv is set
+        ```
+
+    This command explicitly tells your activated Python interpreter to read and execute the `greet.py` file.
+
+#### The Shebang: `#!/usr/bin/env python3` (UNIX-like Systems: macOS, Linux)
+
+For users on macOS and Linux (UNIX-like systems), there's a powerful convention known as the **shebang** (from "hash-bang"). This special first line in a script tells the operating system *which interpreter* should be used to run the script, *even if you don't explicitly type `python` or `python3`*.
+
+**Syntax:**
+
+```python
+#!/usr/bin/env python3
+# The line above is the shebang. It MUST be the very first line of your script.
+# (No empty lines or spaces before it!)
+
+# The rest of your Python code follows...
+print("Hello from a shebanged script!")
+```
+
+**Why `#!/usr/bin/env python3`?**
+
+  * **`#!`**: This is the magic sequence that marks a shebang.
+  * **`/usr/bin/env`**: This is a utility that searches the user's `PATH` for the specified program.
+  * **`python3`**: This tells `env` to find the `python3` executable in your `PATH`.
+    This is superior to hardcoding `#!/usr/bin/python3` because it ensures your script uses the *first* `python3` found in the environment's `PATH`, which, when your virtual environment is active, will point to the `python3` *within your `venv`*. This ensures portability and correctness.
+
+#### Making a Script Executable: The Direct Command (Linux/macOS)
+
+For scripts on UNIX-like systems (macOS, Linux), simply adding a shebang isn't enough to run it directly like a system command. You also need to grant it **executable permissions**. This is done using the `chmod` command ("change mode").
+
+1.  **Grant executable permissions:**
+    Navigate to your script's directory in the terminal:
+
+    ```bash
+    chmod +x greet.py
+    ```
+
+    The `+x` option adds the execute permission to the file.
+
+2.  **Run the script directly:**
+    Now, you can run your script just by typing its name, prefixed with `./` to indicate it's in the current directory:
+
+    ```bash
+    (venv) ./greet.py
+    ```
+
+    The operating system sees the shebang, looks for the specified interpreter (`python3` via `env`), and runs the script using that interpreter. This makes your script feel much more like a native command-line tool.
+
+#### For Windows Users: Running Scripts Directly (Without Shebang/Executable Bit)
+
+Windows handles script execution differently and does not use shebangs or executable bits in the same way UNIX-like systems do.
+
+  * **Default Association:** When you installed Python via the official installer and checked "Add python.exe to PATH," Windows automatically associated `.py` files with the Python interpreter.
+  * **Direct Execution:** This means you can often run a script by simply typing its name (if it's in the current directory or a directory in your PATH):
+    ```powershell
+    (venv) greet.py
+    ```
+    Windows will then invoke the Python interpreter (specifically, the one your PATH points to, which should be your `venv`'s Python when activated) to run it. While less explicit than `python greet.py`, it achieves a similar direct execution feel.
+
+-----
+
+**Example: `greet.py` – Your First Interactive CLI Tool**
+
+Let's put `input()` and `print()` on the CLI stage. This script will ask the user for their name and then greet them dynamically.
+
+**`greet.py` (For macOS/Linux, including Shebang and comments):**
+
+```python
+#!/usr/bin/env python3
+# The shebang line tells the OS to use the python3 interpreter found in the PATH.
+
+# This script asks for the user's name and prints a dynamic greeting.
+
+# Use input() to ask for the name.
+# The prompt "What is your name? " is displayed, and the program waits for input.
+user_name = input("What is your name? ")
+
+# Use an f-string to construct a personalized greeting message.
+# The user_name variable is directly embedded into the string.
+greeting_message = f"Hello, {user_name}! Welcome to the command-line world."
+
+# Print the dynamic message to the console.
+print(greeting_message)
+
+print("This script has completed its task.")
+```
+
+**`greet.py` (For Windows, same content, just no shebang needed):**
+
+```python
+# This script asks for the user's name and prints a dynamic greeting.
+# (No shebang needed for Windows, as execution is handled by file association)
+
+# Use input() to ask for the name.
+# The prompt "What is your name? " is displayed, and the program waits for input.
+user_name = input("What is your name? ")
+
+# Use an f-string to construct a personalized greeting message.
+# The user_name variable is directly embedded into the string.
+greeting_message = f"Hello, {user_name}! Welcome to the command-line world."
+
+# Print the dynamic message to the console.
+print(greeting_message)
+
+print("This script has completed its task.")
+```
+
+**Execution Steps:**
+
+1.  **Save** the code above as `greet.py` in your project folder.
+2.  **Activate** your virtual environment (`source venv/bin/activate` or `.\venv\Scripts\Activate.ps1`).
+3.  **On macOS/Linux only:** Make it executable: `chmod +x greet.py`
+4.  **Run the script:**
+      * **Windows:** `python greet.py` (or sometimes just `greet.py`)
+      * **macOS/Linux:** `./greet.py` (or `python3.12 greet.py`)
+
+When you run it, your terminal will display the prompt, wait for your input, and then print the personalized greeting. You've just built your first interactive CLI tool. This is a powerful step towards building automation and useful utilities.
