@@ -200,9 +200,7 @@ These types form the indispensable bedrock for all mathematical and quantitative
     -   **The Uncompromising Solution:** For situations demanding exact decimal arithmetic, Python provides the `decimal` module (`import decimal`). This module allows you to specify the precision and ensures exact decimal calculations, avoiding floating-point inaccuracies.
         
     
-    python
-    
-    ```
+    ```python
     price = 99.99
     pi = 3.14159
     scientific_notation = 6.022e23 # Represents 6.022 * 10^23
@@ -476,7 +474,7 @@ _An uncompromising programmer internalizes this principle: for immutable types, 
     
    
     
-    ```
+    ```python
     # Examples of Falsy
     if 0: print("0 is Truthy")
     else: print("0 is Falsy") # Output: 0 is Falsy
