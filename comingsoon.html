@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coming Soon | Python Mastery Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        .animate-pulse-slow {
+            animation: pulse 3s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen flex items-center justify-center font-sans">
+    <div class="container mx-auto px-4 py-12 max-w-3xl text-center">
+        <!-- Animated Python Logo -->
+        <div class="flex justify-center mb-8 animate-pulse-slow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 2v4"/>
+                <path d="M12 18v4"/>
+                <path d="M7 7l3 3-3 3"/>
+                <path d="M17 7l-3 3 3 3"/>
+                <circle cx="12" cy="12" r="10"/>
+            </svg>
+        </div>
+        
+        <h1 class="text-4xl md:text-5xl font-bold text-blue-400 mb-4">Content Coming Soon!</h1>
+        
+        <p class="text-xl text-gray-400 mb-8">
+            We're working hard to create amazing Python content for you. 
+            Please check back later.
+        </p>
+        
+        <!-- Back button -->
+        <a href="index.html" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+            ← Back to Main Page
+        </a>
+    </div>
+</body>
+</html>
