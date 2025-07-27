@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Mastery Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .chapter-link:hover {
+            transform: translateY(-3px);
+            background-color: #1e293b;
+        }
+        .section-divider {
+            position: relative;
+        }
+        .section-divider::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 min-h-screen font-sans">
+    <div class="container mx-auto px-4 py-12">
+        <!-- Header -->
+        <header class="text-center mb-16 animate-fadeIn" style="animation-delay: 0.1s;">
+            <h1 class="text-4xl md:text-5xl font-bold text-blue-400 mb-4">Python Mastery Guide</h1>
+            <p class="text-xl text-gray-400 max-w-3xl mx-auto">A comprehensive roadmap from core foundations to practical development</p>
+        </header>
+
+        <!-- Part 1: Core Foundations -->
+        <section class="mb-16">
+            <div class="flex items-center mb-8 section-divider">
+                <span class="text-2xl mr-3">📍</span>
+                <h2 class="text-3xl font-bold text-blue-300">Part I: Core Foundations</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Generate 10 chapters for Part 1 -->
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 0.2s;">
+                    <span class="text-blue-400 font-bold mr-3">1.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Setting Up Python Like a Pro</h3>
+                        <p class="text-sm text-gray-400">Installation, editors, virtual environments, REPL vs script</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 0.3s;">
+                    <span class="text-blue-400 font-bold mr-3">2.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Input, Output, and Basic Scripting</h3>
+                        <p class="text-sm text-gray-400">input(), print(), CLI basics, string interpolation</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 0.4s;">
+                    <span class="text-blue-400 font-bold mr-3">3.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Variables, Data Types & Memory</h3>
+                        <p class="text-sm text-gray-400">int, float, str, bool, None, memory concepts</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 0.5s;">
+                    <span class="text-blue-400 font-bold mr-3">4.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Operators and Expressions</h3>
+                        <p class="text-sm text-gray-400">Arithmetic, logical, comparison, bitwise operations</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 0.6s;">
+                    <span class="text-blue-400 font-bold mr-3">5.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Control Flow: If, Else, Elif</h3>
+                        <p class="text-sm text-gray-400">Conditional statements, truthy/falsy values</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 0.7s;">
+                    <span class="text-blue-400 font-bold mr-3">6.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Loops and Iteration</h3>
+                        <p class="text-sm text-gray-400">for, while loops, break, continue, else clause</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 0.8s;">
+                    <span class="text-blue-400 font-bold mr-3">7.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Functions and Functional Thinking</h3>
+                        <p class="text-sm text-gray-400">Defining functions, scope, default arguments</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 0.9s;">
+                    <span class="text-blue-400 font-bold mr-3">8.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Understanding Scope</h3>
+                        <p class="text-sm text-gray-400">Global, local, nonlocal variables, closures</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 1.0s;">
+                    <span class="text-blue-400 font-bold mr-3">9.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Strings and Text Handling</h3>
+                        <p class="text-sm text-gray-400">Indexing, slicing, formatting, Unicode</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-blue-500 flex items-start animate-fadeIn" style="animation-delay: 1.1s;">
+                    <span class="text-blue-400 font-bold mr-3">10.</span>
+                    <div>
+                        <h3 class="font-semibold text-blue-400 mb-1">Lists and Tuples in Action</h3>
+                        <p class="text-sm text-gray-400">Indexing, slicing, nesting, common patterns</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Part 2: Intermediate Concepts -->
+        <section class="mb-16">
+            <div class="flex items-center mb-8 section-divider">
+                <span class="text-2xl mr-3">📍</span>
+                <h2 class="text-3xl font-bold text-purple-300">Part II: Intermediate Concepts</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Generate 10 chapters for Part 2 -->
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 0.2s;">
+                    <span class="text-purple-400 font-bold mr-3">11.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Dictionaries and Sets</h3>
+                        <p class="text-sm text-gray-400">Hashing, key-value modeling, set theory</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 0.3s;">
+                    <span class="text-purple-400 font-bold mr-3">12.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">File Handling</h3>
+                        <p class="text-sm text-gray-400">Reading/writing text, binary, CSV files</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 0.4s;">
+                    <span class="text-purple-400 font-bold mr-3">13.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Error Handling</h3>
+                        <p class="text-sm text-gray-400">Try-except-else-finally, custom exceptions</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 0.5s;">
+                    <span class="text-purple-400 font-bold mr-3">14.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Modular Programming</h3>
+                        <p class="text-sm text-gray-400">Python file structure, imports, __main__</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 0.6s;">
+                    <span class="text-purple-400 font-bold mr-3">15.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Object-Oriented Programming</h3>
+                        <p class="text-sm text-gray-400">Classes, objects, constructors, methods</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 0.7s;">
+                    <span class="text-purple-400 font-bold mr-3">16.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Inheritance and Polymorphism</h3>
+                        <p class="text-sm text-gray-400">Base classes, overriding, super()</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 0.8s;">
+                    <span class="text-purple-400 font-bold mr-3">17.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Advanced Functions</h3>
+                        <p class="text-sm text-gray-400">Lambda, map, filter, reduce</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 0.9s;">
+                    <span class="text-purple-400 font-bold mr-3">18.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Decorators and Closures</h3>
+                        <p class="text-sm text-gray-400">Function decorators, preserving metadata</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 1.0s;">
+                    <span class="text-purple-400 font-bold mr-3">19.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Working with Time and Date</h3>
+                        <p class="text-sm text-gray-400">datetime, timestamps, time zones</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-purple-500 flex items-start animate-fadeIn" style="animation-delay: 1.1s;">
+                    <span class="text-purple-400 font-bold mr-3">20.</span>
+                    <div>
+                        <h3 class="font-semibold text-purple-400 mb-1">Regex and Data Validation</h3>
+                        <p class="text-sm text-gray-400">Pattern matching, validation, searching</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Part 3: Practical Development -->
+        <section class="mb-16">
+            <div class="flex items-center mb-8 section-divider">
+                <span class="text-2xl mr-3">📍</span>
+                <h2 class="text-3xl font-bold text-green-300">Part III: Practical Development</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Generate 10 chapters for Part 3 -->
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 0.2s;">
+                    <span class="text-green-400 font-bold mr-3">21.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">Command-Line Apps</h3>
+                        <p class="text-sm text-gray-400">sys.argv, argparse, CLI tools</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 0.3s;">
+                    <span class="text-green-400 font-bold mr-3">22.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">OS and Filesystems</h3>
+                        <p class="text-sm text-gray-400">os, pathlib, shutil, automation</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 0.4s;">
+                    <span class="text-green-400 font-bold mr-3">23.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">Pythonic Code</h3>
+                        <p class="text-sm text-gray-400">Idioms, design patterns, best practices</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 0.5s;">
+                    <span class="text-green-400 font-bold mr-3">24.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">JSON and CSV</h3>
+                        <p class="text-sm text-gray-400">Data serialization, config files, APIs</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 0.6s;">
+                    <span class="text-green-400 font-bold mr-3">25.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">Testing and Debugging</h3>
+                        <p class="text-sm text-gray-400">unittest, assertions, pdb, debug logs</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 0.7s;">
+                    <span class="text-green-400 font-bold mr-3">26.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">Virtual Environments</h3>
+                        <p class="text-sm text-gray-400">venv, pip, requirements.txt</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 0.8s;">
+                    <span class="text-green-400 font-bold mr-3">27.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">GUI with Tkinter</h3>
+                        <p class="text-sm text-gray-400">Widgets, layouts, input forms</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 0.9s;">
+                    <span class="text-green-400 font-bold mr-3">28.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">Networking and APIs</h3>
+                        <p class="text-sm text-gray-400">REST API basics, requests library</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 1.0s;">
+                    <span class="text-green-400 font-bold mr-3">29.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">Project Structure</h3>
+                        <p class="text-sm text-gray-400">Folder structure, maintainability</p>
+                    </div>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-green-500 flex items-start animate-fadeIn" style="animation-delay: 1.1s;">
+                    <span class="text-green-400 font-bold mr-3">30.</span>
+                    <div>
+                        <h3 class="font-semibold text-green-400 mb-1">Capstone Project</h3>
+                        <p class="text-sm text-gray-400">Build a complete real-world application</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Bonus Sections -->
+        <section>
+            <div class="flex items-center mb-8">
+                <span class="text-2xl mr-3">📚</span>
+                <h2 class="text-3xl font-bold text-yellow-300">Bonus Sections</h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-yellow-500 flex flex-col animate-fadeIn" style="animation-delay: 0.2s;">
+                    <h3 class="font-semibold text-yellow-400 mb-2">Python Cheatsheets</h3>
+                    <p class="text-sm text-gray-400 flex-grow">Quick reference guides</p>
+                    <span class="text-xs text-yellow-500 mt-2">Bonus Resource</span>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-yellow-500 flex flex-col animate-fadeIn" style="animation-delay: 0.3s;">
+                    <h3 class="font-semibold text-yellow-400 mb-2">Glossary of Terms</h3>
+                    <p class="text-sm text-gray-400 flex-grow">Python terminology explained</p>
+                    <span class="text-xs text-yellow-500 mt-2">Bonus Resource</span>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-yellow-500 flex flex-col animate-fadeIn" style="animation-delay: 0.4s;">
+                    <h3 class="font-semibold text-yellow-400 mb-2">Industry vs Academic</h3>
+                    <p class="text-sm text-gray-400 flex-grow">Practical vs theoretical Python</p>
+                    <span class="text-xs text-yellow-500 mt-2">Bonus Article</span>
+                </a>
+                
+                <a href="comingsoon.html" class="chapter-link bg-gray-800 rounded-lg p-5 shadow-md transition duration-300 border-l-4 border-yellow-500 flex flex-col animate-fadeIn" style="animation-delay: 0.5s;">
+                    <h3 class="font-semibold text-yellow-400 mb-2">Learning Roadmap</h3>
+                    <p class="text-sm text-gray-400 flex-grow">Where to go after this guide</p>
+                    <span class="text-xs text-yellow-500 mt-2">Bonus Guide</span>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Simple animation on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const links = document.querySelectorAll('.chapter-link');
+            links.forEach((link, index) => {
+                link.style.opacity = '0';
+                link.style.transform = 'translateY(10px)';
+                link.style.animation = `fadeIn 0.5s ease-out ${index * 0.05}s forwards`;
+            });
+        });
+    </script>
+</body>
+</html>
