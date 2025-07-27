@@ -1,51 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="bg-black text-gray-100">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Chapter 3 — Uncompromising Python</title>
-  <link rel="stylesheet" href="/style.css" /> <!-- Reuse your existing site’s CSS -->
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #fff;
-      color: #111;
-      padding: 2rem;
-      max-width: 800px;
-      margin: auto;
-    }
-    pre, code {
-      background-color: #f4f4f4;
-      padding: 0.5em;
-      border-radius: 6px;
-      overflow-x: auto;
-    }
-    h1, h2, h3 {
-      margin-top: 2rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 0.3rem;
-    }
-    a {
-      color: #1e88e5;
-    }
-  </style>
-</head>
-<body>
-  <h1>📘 Chapter 3: Rendering Markdown from GitHub</h1>
-  <div id="markdown-content">Loading content...</div>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chapter 3 – Uncompromising Python</title>
 
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- ✅ Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    const url = "https://raw.githubusercontent.com/liminal-mradul/Uncompromising-Python/main/Chapter3/content.md";
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            blood: '#ff2c2c',
+            bgdark: '#0f0f0f',
+            codebg: '#1a1a1a',
+          },
+          fontFamily: {
+            mono: ['Fira Code', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
 
-    fetch(url)
+  <!-- ✅ Highlight.js Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+</head>
+<body class="bg-bgdark min-h-screen p-6 font-mono tracking-wide leading-relaxed">
+
+  <!-- ✅ Page Title -->
+  <header class="mb-10">
+    <h1 class="text-4xl text-blood font-bold border-b-2 border-blood pb-2">
+      Chapter 3: Variables, Data Types
+    </h1>
+  </header>
+
+  <!-- ✅ Markdown Render Container -->
+  <main id="markdown-content" class="prose prose-invert prose-pre:bg-codebg prose-code:bg-codebg prose-headings:text-blood max-w-3xl mx-auto">
+    <p>Loading content...</p>
+  </main>
+
+  <!-- ✅ Marked.js and Highlight.js -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+  <!-- ✅ Markdown Fetch + Highlighting -->
+  <script>
+    marked.setOptions({
+      highlight: function(code, lang) {
+        return hljs.highlightAuto(code).value;
+      }
+    });
+
+    const mdURL = "https://raw.githubusercontent.com/liminal-mradul/Uncompromising-Python/main/Chapter3/content.md";
+
+    fetch(mdURL)
       .then(res => res.text())
       .then(md => {
         const html = marked.parse(md);
-        document.getElementById('markdown-content').innerHTML = html;
+        document.getElementById("markdown-content").innerHTML = html;
+        document.querySelectorAll('pre code').forEach((block) => {
+          hljs.highlightElement(block);
+        });
       })
       .catch(err => {
-        document.getElementById('markdown-content').innerHTML = "⚠️ Failed to load Markdown content.";
+        document.getElementById("markdown-content").innerHTML = "❌ Failed to load content.";
         console.error(err);
       });
   </script>
