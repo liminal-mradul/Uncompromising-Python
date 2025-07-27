@@ -12,18 +12,18 @@
                 opacity: 1;
             }
             20%, 22%, 24%, 55% {
-                opacity: 0.5;
+                opacity: 0.8;
             }
         }
         .flicker-text {
             animation: flicker 8s infinite;
         }
         .glow-text {
-            text-shadow: 0 0 10px rgba(59, 130, 246, 0.7);
+            text-shadow: 0 0 10px rgba(239, 68, 68, 0.7);
         }
         .typewriter {
             overflow: hidden;
-            border-right: .15em solid #3b82f6;
+            border-right: .15em solid #ef4444;
             white-space: nowrap;
             margin: 0 auto;
             letter-spacing: .15em;
@@ -35,107 +35,101 @@
         }
         @keyframes blink-caret {
             from, to { border-color: transparent }
-            50% { border-color: #3b82f6 }
+            50% { border-color: #ef4444 }
         }
         .section-divider {
             position: relative;
             height: 2px;
-            background: linear-gradient(90deg, transparent, #3b82f6, transparent);
+            background: linear-gradient(90deg, transparent, #ef4444, transparent);
             margin: 3rem 0;
         }
         .philosophy-card {
             background: linear-gradient(145deg, #111827, #1f2937);
-            border-left: 4px solid #3b82f6;
+            border-left: 4px solid #ef4444;
             transition: all 0.3s ease;
         }
         .philosophy-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        }
+        .code-block {
+            font-family: monospace;
+            background: #1e293b;
+            border: 1px solid #334155;
         }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-200 font-sans">
-    <!-- Animated Background -->
-    <div class="fixed inset-0 bg-gradient-to-br from-gray-900 to-gray-800 opacity-100 z-0"></div>
-    
     <div class="relative z-10 max-w-4xl mx-auto px-6 py-16">
         <!-- Chapter Header -->
         <header class="mb-16 text-center">
             <h1 class="text-5xl md:text-6xl font-bold mb-6">
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500 glow-text animate__animated animate__fadeIn">
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600 glow-text animate__animated animate__fadeIn">
                     Chapter 0: The Relentless Mindset
                 </span>
             </h1>
             
             <div class="typewriter text-xl text-gray-400 mb-8 animate__animated animate__fadeIn animate__delay-1s">
-                "This isn't a tutorial. This is a challenge."
-            </div>
-            
-            <div class="flex justify-center">
-                <div class="section-divider w-1/2"></div>
+                "Before we even write a single line of code, let's get something straight."
             </div>
         </header>
 
         <!-- Opening Statement -->
-        <section class="mb-20 animate__animated animate__fadeIn animate__delay-1s">
-            <p class="text-xl leading-relaxed mb-6 flicker-text">
-                <strong class="text-blue-400">Before we even write a single line of code, let's get something straight.</strong>
-            </p>
-            
+        <section class="mb-12 animate__animated animate__fadeIn animate__delay-1s">
             <div class="space-y-6 text-lg text-gray-300">
                 <p>This isn't a tutorial. This isn't a course dump.</p>
                 <p>This is a challenge. And it's not going to be easy — because that's not the point.</p>
-                <p class="border-l-4 border-blue-500 pl-4 py-2 bg-gray-800 bg-opacity-50">
-                    Programming isn't about writing code that works.<br>
-                    It's about <span class="text-blue-400 font-bold">thinking deeply</span>, building systems that hold under pressure, 
-                    and making decisions in the dark with nothing but logic and instinct.
-                </p>
+                <div class="border-l-4 border-red-500 pl-4 py-2 bg-gray-800 bg-opacity-50">
+                    <p>Programming isn't about writing code that works.</p>
+                    <p>It's about <span class="text-red-400 font-bold">thinking deeply</span>, building systems that hold under pressure, and making decisions in the dark with nothing but logic and instinct.</p>
+                </div>
                 <p>Most people never get there. Most don't even try.</p>
-                <p class="text-2xl text-center mt-8 text-blue-400 glow-text">But you're here.</p>
+                <p class="text-2xl text-center mt-8 text-red-400 glow-text">But you're here.</p>
                 <p class="text-xl text-center mb-8">And that already says something.</p>
             </div>
+            <div class="section-divider"></div>
         </section>
 
         <!-- Philosophy of This Book -->
-        <section class="philosophy-card p-8 mb-16 rounded-lg animate__animated animate__fadeIn">
+        <section class="philosophy-card p-8 mb-12 rounded-lg animate__animated animate__fadeIn">
             <h2 class="text-3xl font-bold mb-6 flex items-center">
                 <span class="mr-3">📖</span>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Philosophy of This Book</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">Philosophy of This Book</span>
             </h2>
             
             <div class="space-y-6 text-lg">
                 <p>This book isn't written to <span class="text-gray-400">teach you Python</span>.</p>
-                <p>It's written to <span class="text-blue-400 font-bold">transform the way you see</span> Python, programming, and yourself.</p>
+                <p>It's written to <span class="text-red-400 font-bold">transform the way you see</span> Python, programming, and yourself.</p>
                 <p>It doesn't care about trends.</p>
                 <p>It's not bloated with buzzwords, nor sanitized for your comfort.</p>
-                <p class="text-xl">It is <span class="text-blue-400">sharp</span>. It is <span class="text-blue-400">clear</span>.</p>
-                <p class="text-2xl font-bold text-blue-400">It is relentless — just like the kind of developer the world desperately needs.</p>
+                <p class="text-xl">It is <span class="text-red-400">sharp</span>. It is <span class="text-red-400">clear</span>.</p>
+                <p class="text-2xl font-bold text-red-400">It is relentless — just like the kind of developer the world desperately needs.</p>
                 
                 <div class="bg-gray-800 bg-opacity-50 p-6 rounded-lg mt-6 border border-gray-700">
                     <p class="text-xl italic">A real programmer isn't defined by what they know — but how they think when they don't know.</p>
-                    <p class="text-right mt-4 text-blue-400">And if that excites you more than it scares you — this is your book.</p>
+                    <p class="text-right mt-4 text-red-400">And if that excites you more than it scares you — this is your book.</p>
                 </div>
             </div>
         </section>
 
         <!-- Philosophy of the Programmer -->
-        <section class="philosophy-card p-8 mb-16 rounded-lg animate__animated animate__fadeIn">
+        <section class="philosophy-card p-8 mb-12 rounded-lg animate__animated animate__fadeIn">
             <h2 class="text-3xl font-bold mb-6 flex items-center">
                 <span class="mr-3">👤</span>
-                <span class="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Philosophy of the Programmer</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">Philosophy of the Programmer</span>
             </h2>
             
             <div class="space-y-6 text-lg">
                 <p>A programmer is not just someone who writes code.</p>
-                <p>They are a <span class="text-blue-400">philosopher</span>, a <span class="text-blue-400">problem-solver</span>, a <span class="text-blue-400">warrior of clarity</span> in a world ruled by chaos.</p>
+                <p>They are a <span class="text-red-400">philosopher</span>, a <span class="text-red-400">problem-solver</span>, a <span class="text-red-400">warrior of clarity</span> in a world ruled by chaos.</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
                     <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
-                        <p class="font-bold text-blue-400 mb-2">You don't just build apps</p>
+                        <p class="font-bold text-red-400 mb-2">You don't just build apps</p>
                         <p>You <span class="italic">build logic out of nothingness</span>.</p>
                     </div>
                     <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
-                        <p class="font-bold text-blue-400 mb-2">You don't just debug errors</p>
+                        <p class="font-bold text-red-400 mb-2">You don't just debug errors</p>
                         <p>You <span class="italic">debug your own thoughts</span>.</p>
                     </div>
                 </div>
@@ -149,20 +143,205 @@
                 </ul>
                 
                 <p class="text-xl mt-6">It's not a job. It's a craft.</p>
-                <p class="text-2xl text-blue-400 font-bold mt-2">And every great programmer knows: code is your canvas, and your mind is the brush.</p>
+                <p class="text-2xl text-red-400 font-bold mt-2">And every great programmer knows: code is your canvas, and your mind is the brush.</p>
             </div>
         </section>
 
-        <!-- Continue with other sections in similar fashion... -->
+        <!-- Philosophy of Programming -->
+        <section class="philosophy-card p-8 mb-12 rounded-lg animate__animated animate__fadeIn">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="mr-3">💻</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">Philosophy of Programming</span>
+            </h2>
+            
+            <div class="space-y-6 text-lg">
+                <p>Programming is <span class="text-red-400 font-bold">not typing</span>.</p>
+                <p>It is not memorizing syntax, or copying snippets from StackOverflow.</p>
+                
+                <p class="text-xl mt-4">Programming is the <span class="text-red-400">art of structured thought</span>.</p>
+                <p>It is poetry where every line must compile.</p>
+                <p>It is design, discipline, creativity, madness — all inside a file named <span class="code-block px-2 py-1 rounded">main.py</span>.</p>
+                
+                <div class="bg-gray-800 bg-opacity-50 p-6 rounded-lg mt-6 border border-gray-700">
+                    <p class="text-xl">At its heart, programming is philosophy made executable.</p>
+                    <p>You take a worldview, a way of solving problems — and turn it into instructions a machine can understand.</p>
+                </div>
+            </div>
+        </section>
 
-        <!-- Final Section -->
-        <section class="mt-24 text-center animate__animated animate__fadeIn">
+        <!-- Philosophy of Computer Science & Engineering -->
+        <section class="philosophy-card p-8 mb-12 rounded-lg animate__animated animate__fadeIn">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="mr-3">🧠</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">Philosophy of Computer Science & Engineering</span>
+            </h2>
+            
+            <div class="space-y-6 text-lg">
+                <p>Computer Science is not about computers.</p>
+                <p class="text-xl text-red-400">It's about <span class="font-bold">ideas that scale</span>.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
+                        <p>Where mathematics meets logic</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
+                        <p>Where architecture meets movement</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
+                        <p>Where theory meets raw voltage</p>
+                    </div>
+                </div>
+                
+                <p class="mt-6">Engineering isn't building things.</p>
+                <p>It's building <span class="text-red-400">with principles</span>, <span class="text-red-400">under constraints</span>, <span class="text-red-400">with consequences</span>.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
+                        <p class="font-bold text-red-400">Humbling</p>
+                        <p>Because the machine only does <span class="italic">exactly</span> what you say.</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
+                        <p class="font-bold text-red-400">Empowering</p>
+                        <p>Because what you say can literally <span class="font-bold">shape the world</span>.</p>
+                    </div>
+                </div>
+                
+                <p class="text-xl mt-6">Computer Science gives us the logic.</p>
+                <p class="text-xl">Engineering gives us the limits.</p>
+                <p class="text-2xl text-red-400 font-bold">Programming gives us the voice.</p>
+            </div>
+        </section>
+
+        <!-- The Relationship: Programmer & Keyboard -->
+        <section class="philosophy-card p-8 mb-12 rounded-lg animate__animated animate__fadeIn">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="mr-3">⌨️</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">The Relationship: Programmer & Keyboard</span>
+            </h2>
+            
+            <div class="space-y-6 text-lg">
+                <p>A programmer's keyboard is more than a tool.</p>
+                <p>It's a battlefield, a sanctuary, a confessional.</p>
+                
+                <p class="mt-4">It's where you fight with bugs, talk to logic, cry at 3AM, and sometimes — create something magical.</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                    <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
+                        <p>Each keystroke is a negotiation</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
+                        <p>Each <span class="code-block px-1">Ctrl + S</span> is a commitment</p>
+                    </div>
+                    <div class="bg-gray-800 bg-opacity-50 p-4 rounded-lg border border-gray-700">
+                        <p>Each run is a question</p>
+                    </div>
+                </div>
+                
+                <p class="mt-6">Your keyboard doesn't lie.</p>
+                <p>It doesn't flatter. It reflects exactly what you think — and what you don't.</p>
+                
+                <div class="bg-gray-800 bg-opacity-50 p-6 rounded-lg mt-6 border border-gray-700 text-center">
+                    <p class="text-xl">And when you finally <span class="text-red-400">get it right</span> —</p>
+                    <p class="text-2xl mt-2">That moment of silence before the output appears?</p>
+                    <p class="text-xl mt-4 italic">That's the closest a human gets to hearing a machine say:</p>
+                    <p class="text-3xl text-red-400 font-bold mt-4">"I understand."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why I Wrote This -->
+        <section class="philosophy-card p-8 mb-12 rounded-lg animate__animated animate__fadeIn">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="mr-3">✍️</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">Why I Wrote This</span>
+            </h2>
+            
+            <div class="space-y-6 text-lg">
+                <p>I got tired.</p>
+                <div class="space-y-4">
+                    <p>Tired of tutorials that hold your hand but never show you how to walk alone.</p>
+                    <p>Tired of books that teach Python's <span class="text-red-400">syntax</span> but never its <span class="text-red-400">soul</span>.</p>
+                    <p>Tired of the noise — craving something that cuts through.</p>
+                </div>
+                
+                <p class="mt-4">So I wrote what I needed:</p>
+                <p class="text-xl text-red-400">A guide for those who are <span class="font-bold">done with easy</span>.</p>
+                <p class="text-xl">A guide for those who want to think like engineers, not just scripters.</p>
+                
+                <div class="bg-gray-800 bg-opacity-50 p-6 rounded-lg mt-6 border border-gray-700">
+                    <p class="font-bold text-red-400 mb-2">This is for:</p>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>The ones who Googled the same error 50 times and still came back for more</li>
+                        <li>The ones who don't sleep until the bug dies</li>
+                        <li>The ones who don't want shortcuts — they want the whole damn mountain</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- What You're Getting Into -->
+        <section class="philosophy-card p-8 mb-12 rounded-lg animate__animated animate__fadeIn">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="mr-3">🧭</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">What You're Getting Into</span>
+            </h2>
+            
+            <div class="space-y-6 text-lg">
+                <p>Yes, we'll learn Python.</p>
+                <p class="text-xl text-red-400">But not like everyone else.</p>
+                
+                <p class="mt-4">You'll explore:</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>What <span class="italic">really</span> happens under the hood</li>
+                        <li>How memory, data structures, and logic actually work together</li>
+                        <li>How to write Python that doesn't just run — but endures</li>
+                    </ul>
+                    <ul class="list-disc pl-6 space-y-2">
+                        <li>How to think like a designer, a hacker, a debugger, and a strategist</li>
+                        <li>When to break the rules — and when breaking them breaks <span class="italic">you</span></li>
+                    </ul>
+                </div>
+                
+                <p class="text-2xl text-red-400 font-bold mt-6">You won't just learn how to code.</p>
+                <p class="text-2xl">You'll learn how to <span class="text-red-400">think in code</span>.</p>
+            </div>
+        </section>
+
+        <!-- A Heads Up -->
+        <section class="philosophy-card p-8 mb-12 rounded-lg animate__animated animate__fadeIn bg-gradient-to-br from-gray-900 to-red-900">
+            <h2 class="text-3xl font-bold mb-6 flex items-center">
+                <span class="mr-3">⚠️</span>
+                <span class="bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-red-600">A Heads Up</span>
+            </h2>
+            
+            <div class="space-y-6 text-lg">
+                <p>I won't explain everything.</p>
+                <p>Not because I forgot, but because I want you to <span class="text-red-400 font-bold">think</span>.</p>
+                <p>To struggle. To reflect. To come back to a section after failing — and finally <span class="text-red-400">get it</span>.</p>
+                
+                <p class="text-xl mt-4">That's how mastery works.</p>
+                
+                <div class="bg-black bg-opacity-30 p-6 rounded-lg mt-6 border border-red-900 text-center">
+                    <p class="text-xl">If you're looking for a tutorial — this ain't it.</p>
+                    <p class="text-2xl text-red-400 font-bold mt-2">But if you're ready to go deep, we're going to build something unforgettable.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- One Last Thing -->
+        <section class="text-center mt-20 animate__animated animate__fadeIn">
             <div class="section-divider mx-auto w-1/2"></div>
-            <p class="text-3xl font-bold mt-12 mb-6 text-blue-400 glow-text">One Last Thing</p>
-            <p class="text-xl mb-8">Every real programmer has that one moment —</p>
-            <p class="text-2xl italic mb-8">The moment they could have quit, but didn't.</p>
+            <h2 class="text-4xl font-bold mt-12 mb-6 text-red-400 glow-text flex items-center justify-center">
+                <span class="mr-3">🌒</span>
+                One Last Thing
+            </h2>
+            
+            <p class="text-xl mb-6">Every real programmer has that one moment —</p>
+            <p class="text-3xl italic mb-8">The moment they could have quit, but didn't.</p>
+            
             <p class="text-xl">This book might be that moment for you.</p>
-            <p class="text-2xl font-bold text-blue-400 mt-4">If it is — don't quit.</p>
+            <p class="text-3xl font-bold text-red-400 mt-4 glow-text">If it is — don't quit.</p>
             
             <div class="section-divider mx-auto w-1/2 mt-16"></div>
             
@@ -180,7 +359,7 @@
     <script>
         // Add intersection observers for scroll animations
         document.addEventListener('DOMContentLoaded', () => {
-            const philosophyCards = document.querySelectorAll('.philosophy-card');
+            const cards = document.querySelectorAll('.philosophy-card');
             
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -190,7 +369,7 @@
                 });
             }, { threshold: 0.1 });
             
-            philosophyCards.forEach(card => {
+            cards.forEach(card => {
                 observer.observe(card);
             });
         });
