@@ -1,73 +1,690 @@
 <!DOCTYPE html>
-<html lang="en" class="bg-black text-gray-100">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chapter 3 – Uncompromising Python</title>
-
-  <!-- ✅ Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            blood: '#ff2c2c',
-            bgdark: '#0f0f0f',
-            codebg: '#1a1a1a',
-          },
-          fontFamily: {
-            mono: ['Fira Code', 'monospace'],
-            sans: ['Inter', 'sans-serif']
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Python Variables & Memory | Python Mastery Guide</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --accent-red: #ef4444;
+            --accent-red-dark: #7f1d1d;
+            --text-light: #e2e8f0;
+            --text-gray: #94a3b8;
+            --highlight: #f87171;
         }
-      }
-    }
-  </script>
-
-  <!-- ✅ Highlight.js styles -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--accent-red), #dc2626);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+        }
+        
+        .chapter-subtitle {
+            font-size: 1.5rem;
+            color: var(--text-gray);
+            font-style: italic;
+            margin-top: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .chapter-subtitle::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-red), transparent);
+        }
+        
+        .section {
+            background: linear-gradient(145deg, #111827, #1f2937);
+            border-left: 4px solid var(--accent-red);
+            border-radius: 0.5rem;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(239, 68, 68, 0.2);
+        }
+        
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(90deg, var(--accent-red), #dc2626);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        h2 .emoji {
+            margin-right: 0.8rem;
+            font-size: 2rem;
+        }
+        
+        h3 {
+            font-size: 1.6rem;
+            color: var(--highlight);
+            margin: 1.5rem 0 1rem;
+            font-weight: 600;
+        }
+        
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.1rem;
+        }
+        
+        .highlight {
+            color: var(--highlight);
+            font-weight: 600;
+        }
+        
+        .code-block {
+            background-color: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.95rem;
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background-color: var(--accent-red);
+            border-radius: 0.5rem 0 0 0.5rem;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            margin: 0;
+        }
+        
+        code {
+            font-family: 'Fira Code', monospace;
+            background-color: rgba(239, 68, 68, 0.1);
+            padding: 0.2rem 0.4rem;
+            border-radius: 0.3rem;
+            font-size: 0.95rem;
+        }
+        
+        .visualization {
+            background-color: rgba(30, 41, 59, 0.7);
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .memory-diagram {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            margin: 1rem 0;
+        }
+        
+        .memory-object {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 2px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .memory-object:hover {
+            border-color: var(--accent-red);
+            transform: scale(1.03);
+        }
+        
+        .memory-id {
+            position: absolute;
+            top: -12px;
+            left: 10px;
+            background-color: var(--accent-red);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.3rem;
+            font-size: 0.8rem;
+            font-family: 'Fira Code', monospace;
+        }
+        
+        .memory-content {
+            margin-top: 0.5rem;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.1rem;
+        }
+        
+        .variable-label {
+            display: inline-block;
+            background-color: rgba(56, 189, 248, 0.2);
+            border: 1px solid #0ea5e9;
+            border-radius: 0.3rem;
+            padding: 0.5rem 1rem;
+            margin: 0.5rem;
+            font-family: 'Fira Code', monospace;
+            position: relative;
+        }
+        
+        .pointer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .pointer-line {
+            height: 2px;
+            background-color: #0ea5e9;
+            width: 60px;
+        }
+        
+        .pointer-arrow {
+            font-size: 1.5rem;
+            color: #0ea5e9;
+        }
+        
+        .philosophy-box {
+            background: linear-gradient(145deg, #1e293b, #111827);
+            border: 2px solid var(--accent-red);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            position: relative;
+        }
+        
+        .philosophy-box::before {
+            content: '🧠 Philosophy Break';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background-color: var(--accent-red);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.3rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .interactive-demo {
+            background-color: rgba(30, 41, 59, 0.7);
+            border: 1px solid #334155;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .demo-controls {
+            display: flex;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: linear-gradient(145deg, var(--accent-red), var(--accent-red-dark));
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 0.3rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+        }
+        
+        .output-area {
+            background-color: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 0.3rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            font-family: 'Fira Code', monospace;
+            min-height: 80px;
+        }
+        
+        .key-points {
+            background: rgba(30, 41, 59, 0.5);
+            border-left: 3px solid var(--accent-red);
+            padding: 1.2rem;
+            margin: 1.5rem 0;
+            border-radius: 0 0.5rem 0.5rem 0;
+        }
+        
+        .key-points ul {
+            padding-left: 1.5rem;
+        }
+        
+        .key-points li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .conclusion {
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #334155;
+        }
+        
+        .conclusion p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            h2 {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .memory-diagram {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-bgdark min-h-screen px-6 py-10 font-sans tracking-wide leading-relaxed">
+<body>
+    <div class="container">
+        <header class="chapter-header">
+            <h1>📘 Chapter 3: Variables, Data Types & Memory Concepts</h1>
+            <div class="chapter-subtitle">"Where data begins its journey."</div>
+            <p>Learn how Python stores and manipulates everything — from simple numbers to deep memory identity.</p>
+        </header>
+        
+        <!-- Section 3.1 -->
+        <section class="section">
+            <h2><span class="emoji">🔹</span> 3.1 The Nature of Variables</h2>
+            
+            <p><em>Names are not boxes. They're tags on memory.</em></p>
+            
+            <p>This is not just a catchy phrase; it is the <span class="highlight">absolute, non-negotiable truth</span> of how Python handles data. Discard any mental image of variables as "boxes," "containers," or "storage slots" that physically hold values. That model, while intuitive for some other programming languages (like C or Java with primitive types), is fundamentally misleading in Python and will lead to confusion and bugs down the line.</p>
+            
+            <p>In Python, a <span class="highlight">variable</span> is purely a <span class="highlight">name</span> (an identifier) that serves as a <span class="highlight">reference</span> or a <span class="highlight">label</span> for an <span class="highlight">object</span> residing somewhere in your computer's memory.</p>
+            
+            <h3>What is a Variable? A Deeper Dive</h3>
+            <p>A variable is a symbolic name that points to a specific piece of data (an object) that Python has created and stored. When you manipulate a variable, you're not altering a value inside a container; you're instructing Python to manipulate the object that your variable is currently pointing to, or you're changing which object your variable points to.</p>
+            
+            <h3>Assignment via `=` – The Act of Binding a Name to an Object</h3>
+            <p>The single equals sign (<code>=</code>) is the <span class="highlight">assignment operator</span>. Its function is precise: it <span class="highlight">binds</span> the name on the left-hand side to the object on the right-hand side. It creates a reference.</p>
+            
+            <div class="code-block">
+                <pre>age = 30
+# Visual: [name: age] ----> [object: int(30) at memory_address_X]</pre>
+            </div>
+            
+            <div class="visualization">
+                <h3>Variables Point to Objects in Memory</h3>
+                <div class="memory-diagram">
+                    <div class="variable-label">age</div>
+                    <div class="pointer">
+                        <div class="pointer-line"></div>
+                        <div class="pointer-arrow">→</div>
+                    </div>
+                    <div class="memory-object">
+                        <div class="memory-id">id: 0x7f8a1c</div>
+                        <div class="memory-content">30</div>
+                        <div class="memory-type">int</div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Dynamic Typing: Power and Flexibility</h3>
+            <p>Python is a <span class="highlight">dynamically typed</span> language. This means:</p>
+            
+            <div class="key-points">
+                <ul>
+                    <li><span class="highlight">No type declarations:</span> You don't specify variable types</li>
+                    <li><span class="highlight">Runtime type binding:</span> Type is determined when value is assigned</li>
+                    <li><span class="highlight">Flexible reassignment:</span> Variables can point to different types</li>
+                </ul>
+            </div>
+            
+            <div class="code-block">
+                <pre># Dynamic typing in action
+x = 42          # x is an integer
+print(type(x))  # Output: &lt;class 'int'&gt;
 
-  <!-- ✅ Title -->
-  <header class="mb-12 text-center">
-    <h1 class="text-5xl font-extrabold text-blood border-b-4 inline-block border-blood pb-2">
-      Chapter 3: The Unforgiving Logic of Data
-    </h1>
-  </header>
+x = "Python"    # Now x is a string
+print(type(x))  # Output: &lt;class 'str'&gt;
 
-  <!-- ✅ Markdown Render Container -->
-  <main id="markdown-content"
-        class="prose prose-xl prose-invert prose-pre:rounded-lg prose-pre:p-4 prose-code:text-pink-400
-               prose-headings:text-blood max-w-6xl mx-auto">
-    <p class="text-gray-400">Loading content...</p>
-  </main>
+x = [1, 2, 3]   # Now x is a list
+print(type(x))  # Output: &lt;class 'list'&gt;</pre>
+            </div>
+            
+            <h3>Reassignment and Overwriting: Rebinding, Not Replacing</h3>
+            <p>When you reassign a variable, you're not "overwriting" the original value. You're rebinding the name to a new object:</p>
+            
+            <div class="visualization">
+                <div class="memory-diagram">
+                    <div class="variable-label">x</div>
+                    <div class="pointer">
+                        <div class="pointer-line"></div>
+                        <div class="pointer-arrow">→</div>
+                    </div>
+                    <div class="memory-object">
+                        <div class="memory-id">id: 0x7f8a1c</div>
+                        <div class="memory-content">10</div>
+                        <div class="memory-type">int</div>
+                    </div>
+                </div>
+                
+                <p style="margin: 1rem 0; text-align: center;">After: x = "hello"</p>
+                
+                <div class="memory-diagram">
+                    <div class="variable-label">x</div>
+                    <div class="pointer">
+                        <div class="pointer-line"></div>
+                        <div class="pointer-arrow">→</div>
+                    </div>
+                    <div class="memory-object">
+                        <div class="memory-id">id: 0x9b3d4f</div>
+                        <div class="memory-content">"hello"</div>
+                        <div class="memory-type">str</div>
+                    </div>
+                </div>
+                
+                <div class="memory-object" style="margin-top: 1rem; opacity: 0.6;">
+                    <div class="memory-id">id: 0x7f8a1c</div>
+                    <div class="memory-content">10</div>
+                    <div class="memory-type">int (orphaned)</div>
+                </div>
+            </div>
+            
+            <div class="philosophy-box">
+                <h3>"You never hold the value, you point to it."</h3>
+                <p>Internalize this statement. It is the single most powerful concept for predicting Python's behavior, especially when dealing with data manipulation and memory.</p>
+                <ul style="padding-left: 1.5rem; margin-top: 1rem;">
+                    <li><span class="highlight">Let go of the "container" mindset.</span> Your variables are not storage boxes.</li>
+                    <li><span class="highlight">Python variables are references, not jars holding stuff.</span> This is why concepts like "mutable" and "immutable" objects are crucial.</li>
+                    <li>When you pass a variable to a function, you're passing a reference to an object, not a copy of its value.</li>
+                </ul>
+                <p style="margin-top: 1rem;">An uncompromising Pythonista understands this core distinction. It's the difference between guessing what your code will do and knowing precisely how data flows and transforms within your program.</p>
+            </div>
+        </section>
+        
+        <!-- Section 3.2 -->
+        <section class="section">
+            <h2><span class="emoji">🔹</span> 3.2 Understanding Object Identity</h2>
+            
+            <p>Every object in Python has a unique identity - an integer that remains constant for the object's lifetime. You can access this identity with the <code>id()</code> function.</p>
+            
+            <div class="interactive-demo">
+                <h3>Object Identity Explorer</h3>
+                <div class="demo-controls">
+                    <button id="create-int">Create Integer</button>
+                    <button id="create-str">Create String</button>
+                    <button id="create-list">Create List</button>
+                    <button id="assign-same">Assign Same Value</button>
+                    <button id="assign-diff">Assign Different Value</button>
+                    <button id="alias">Create Alias</button>
+                </div>
+                <div class="output-area" id="output">
+                    # Output will appear here
+                    # Run commands to see object identities
+                </div>
+            </div>
+            
+            <div class="code-block">
+                <pre># Using id() to understand references
+a = [1, 2, 3]
+b = a  # 'b' is an alias for the same object as 'a'
 
-  <!-- ✅ Markdown Parser + Syntax Highlighter -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+print(f"a id: {id(a)}")
+print(f"b id: {id(b)}")  # Same as id(a)
 
-  <!-- ✅ Render Logic -->
-  <script>
-    marked.setOptions({
-      highlight: (code, lang) => hljs.highlightAuto(code).value,
-      langPrefix: 'hljs language-',
-      breaks: true
-    });
+c = [1, 2, 3]  # Creates a NEW list object
+print(f"c id: {id(c)}")  # Different from id(a)</pre>
+            </div>
+            
+            <div class="key-points">
+                <h3>Key Insights:</h3>
+                <ul>
+                    <li>The <code>is</code> operator checks identity (same memory location)</li>
+                    <li>The <code>==</code> operator checks value equality</li>
+                    <li>Small integers and strings may be interned (cached) by Python</li>
+                </ul>
+            </div>
+            
+            <div class="code-block">
+                <pre># Identity vs value equality
+x = 1000
+y = 1000
+print(x == y)  # True - same value
+print(x is y)  # False - different objects (usually)
 
-    const mdURL = "https://raw.githubusercontent.com/liminal-mradul/Uncompromising-Python/main/Chapter3/content.md";
+# But for small integers:
+a = 5
+b = 5
+print(a is b)  # True - cached by Python</pre>
+            </div>
+        </section>
+        
+        <!-- Section 3.3 -->
+        <section class="section">
+            <h2><span class="emoji">🔹</span> 3.3 Memory Management in Python</h2>
+            
+            <p>Python handles memory management automatically through:</p>
+            
+            <div class="key-points">
+                <ul>
+                    <li><span class="highlight">Reference Counting:</span> Tracks how many references point to an object</li>
+                    <li><span class="highlight">Garbage Collection:</span> Reclaims memory from unreachable objects</li>
+                    <li><span class="highlight">Memory Pools:</span> Manages allocation of small objects efficiently</li>
+                </ul>
+            </div>
+            
+            <h3>The Garbage Collection Process</h3>
+            <div class="visualization">
+                <div style="display: flex; justify-content: space-around; width: 100%;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem;">1</div>
+                        <p>Object created</p>
+                        <div class="memory-object">
+                            <div class="memory-id">id: 0x7f8a1c</div>
+                            <div class="memory-content">data</div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem;">2</div>
+                        <p>References added</p>
+                        <div class="memory-object">
+                            <div class="memory-id">id: 0x7f8a1c</div>
+                            <div class="memory-content">data</div>
+                            <div style="margin-top: 0.5rem;">
+                                <span class="variable-label">var1</span>
+                                <span class="variable-label">var2</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem;">3</div>
+                        <p>References removed</p>
+                        <div class="memory-object" style="opacity: 0.7;">
+                            <div class="memory-id">id: 0x7f8a1c</div>
+                            <div class="memory-content">data</div>
+                            <div style="margin-top: 0.5rem;">
+                                <span class="variable-label" style="opacity: 0.4;">var1</span>
+                                <span class="variable-label" style="opacity: 0.4;">var2</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 3rem;">4</div>
+                        <p>Memory reclaimed</p>
+                        <div style="padding: 1.5rem; background: #1e293b; border-radius: 0.5rem; border: 2px dashed #334155;">
+                            Memory Available
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <h3>Reference Cycles and Garbage Collection</h3>
+            <p>Python's garbage collector can detect and clean up reference cycles - objects that reference each other but are otherwise unreachable.</p>
+            
+            <div class="code-block">
+                <pre># Creating a reference cycle
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
 
-    fetch(mdURL)
-      .then(res => res.text())
-      .then(md => {
-        document.getElementById("markdown-content").innerHTML = marked.parse(md);
-        hljs.highlightAll(); // re-run after DOM updated
-      })
-      .catch(err => {
-        document.getElementById("markdown-content").innerHTML = `<p class="text-red-500">❌ Failed to load content.</p>`;
-        console.error(err);
-      });
-  </script>
+# Create two nodes
+a = Node(10)
+b = Node(20)
+
+# Create a reference cycle
+a.next = b
+b.next = a
+
+# Even if we delete external references...
+del a
+del b
+
+# The garbage collector will eventually clean these up</pre>
+            </div>
+        </section>
+        
+        <section class="conclusion">
+            <h3>You've Mastered Python's Memory Model</h3>
+            <p>Understanding variables as references, not containers, transforms how you reason about code. This knowledge is what separates Python practitioners from true Python masters. In the next chapter, we'll build on this foundation to explore mutability and its profound implications.</p>
+        </section>
+    </div>
+
+    <script>
+        // Interactive demo functionality
+        let currentValue = null;
+        let currentId = null;
+        let alias = null;
+        const output = document.getElementById('output');
+        
+        function logToOutput(message) {
+            output.textContent += `\n${message}`;
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        document.getElementById('create-int').addEventListener('click', () => {
+            currentValue = Math.floor(Math.random() * 1000);
+            currentId = `0x${Math.floor(Math.random() * 1000000).toString(16)}`;
+            logToOutput(`Created integer: ${currentValue} at ${currentId}`);
+        });
+        
+        document.getElementById('create-str').addEventListener('click', () => {
+            const words = ['Python', 'Memory', 'Variable', 'Object', 'Reference'];
+            currentValue = `"${words[Math.floor(Math.random() * words.length)]}"`;
+            currentId = `0x${Math.floor(Math.random() * 1000000).toString(16)}`;
+            logToOutput(`Created string: ${currentValue} at ${currentId}`);
+        });
+        
+        document.getElementById('create-list').addEventListener('click', () => {
+            const items = Math.floor(Math.random() * 3) + 1;
+            const list = [];
+            for (let i = 0; i < items; i++) {
+                list.push(Math.floor(Math.random() * 10));
+            }
+            currentValue = `[${list.join(', ')}]`;
+            currentId = `0x${Math.floor(Math.random() * 1000000).toString(16)}`;
+            logToOutput(`Created list: ${currentValue} at ${currentId}`);
+        });
+        
+        document.getElementById('assign-same').addEventListener('click', () => {
+            if (currentValue === null) {
+                logToOutput("Create a value first!");
+                return;
+            }
+            const newId = `0x${Math.floor(Math.random() * 1000000).toString(16)}`;
+            logToOutput(`Assigned same value (${currentValue}) to new object at ${newId}`);
+        });
+        
+        document.getElementById('assign-diff').addEventListener('click', () => {
+            if (currentValue === null) {
+                logToOutput("Create a value first!");
+                return;
+            }
+            const newValue = Math.floor(Math.random() * 1000);
+            const newId = `0x${Math.floor(Math.random() * 1000000).toString(16)}`;
+            logToOutput(`Assigned different value: ${newValue} at ${newId}`);
+        });
+        
+        document.getElementById('alias').addEventListener('click', () => {
+            if (currentValue === null) {
+                logToOutput("Create a value first!");
+                return;
+            }
+            alias = currentValue;
+            logToOutput(`Created alias to current value (${currentValue}) at same memory location`);
+        });
+    </script>
 </body>
 </html>
