@@ -15,9 +15,9 @@ Imagine your program as a helpful assistant. Up until now, it could only deliver
 
 The `input()` function is remarkably straightforward in its structure:
 
-Python
 
-```
+
+```python
 variable_name = input("Your prompt message goes here: ")
 
 ```
@@ -43,9 +43,9 @@ Think of `input()` like a highly efficient transcriber. It doesn't analyze the _
 
 Let's prove this with the `type()` function, your invaluable "data type inspector":
 
-Python
 
-```
+
+```python
 # input_type_demo.py - Demonstrating the string nature of input()
 
 print("--- Understanding Input Types ---")
@@ -75,9 +75,9 @@ print("--- End of Demo ---")
 
 Run this script in your terminal (remember to activate your `venv`!):
 
-Bash
 
-```
+
+```bash
 (venv) python input_type_demo.py
 
 ```
@@ -121,13 +121,13 @@ This string-only behavior of `input()` is not a flaw; it's a **design choice tha
 
 This intentional act of conversion is a mark of a robust program. It anticipates the data it needs and ensures it's in the correct format for processing.
 
-#### Example: Building a Basic Calculator (Corrected and Robust)
+#### Example: Building a Basic Calculator
 
 Let's revisit our simple addition program, this time applying the crucial knowledge of type conversion.
 
-Python
 
-```
+
+```python
 # calculator.py
 # This script demonstrates correct input handling by converting strings to numbers.
 
@@ -166,11 +166,11 @@ print("--- Thank you for using the Adder! ---")
 
 ```
 
-**Simplified Code Box (as per outline):**
+**Simplified Code Box**
 
-Python
 
-```
+
+```python
 num1 = int(input("Enter first number: ")) # Get input, convert to int, store in num1
 num2 = int(input("Enter second number: ")) # Get input, convert to int, store in num2
 print("Sum is:", num1 + num2) # Perform arithmetic, then print the result
