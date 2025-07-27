@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Uncompromising Python - Complete Book Index | Master Python Programming</title>
+    <title>Uncompromising Python - Complete Book Index</title>
     <meta name="description" content="Comprehensive index for Uncompromising Python book. Learn Python from core foundations to practical development with this complete programming guide.">
     <meta name="keywords" content="Python programming, Python book, Python tutorial, learn Python, Python development, Python guide, Uncompromising Python">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
@@ -25,6 +25,10 @@
                             800: '#991b1b',
                             900: '#7f1d1d',
                         }
+                    },
+                    fontFamily: {
+                        signature: ['"Playfair Display"', 'serif'],
+                        heading: ['"Libre Baskerville"', 'serif']
                     }
                 }
             }
@@ -38,6 +42,62 @@
             transform: translateY(-5px);
             box-shadow: 0 10px 25px -5px rgba(220, 38, 38, 0.5);
         }
+        .signature-container {
+            position: relative;
+            overflow: hidden;
+        }
+        .signature-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%237f1d1d" stroke-width="0.5"/></svg>');
+            opacity: 0.1;
+            z-index: 0;
+        }
+        .signature {
+            position: relative;
+            z-index: 10;
+        }
+        .signature-line {
+            background: linear-gradient(90deg, transparent, #b91c1c, transparent);
+            height: 1px;
+        }
+        .book-decoration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .book-decoration::before,
+        .book-decoration::after {
+            content: "";
+            position: absolute;
+            background: rgba(121, 27, 27, 0.1);
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+        .book-decoration::before {
+            top: -100px;
+            right: -100px;
+            background: rgba(185, 28, 28, 0.15);
+        }
+        .book-decoration::after {
+            bottom: -100px;
+            left: -100px;
+            background: rgba(121, 27, 27, 0.1);
+        }
+        .part-badge {
+            top: -12px;
+            right: 20px;
+        }
         .chapter-number {
             width: 40px;
             height: 40px;
@@ -45,9 +105,21 @@
             align-items: center;
             justify-content: center;
         }
-        .part-badge {
-            top: -12px;
-            right: 20px;
+        .dedication-text {
+            position: relative;
+            background: rgba(25, 15, 15, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(121, 27, 27, 0.5);
+        }
+        .dedication-text::before {
+            content: """"";
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-family: 'Playfair Display', serif;
+            font-size: 120px;
+            color: rgba(121, 27, 27, 0.3);
+            line-height: 1;
         }
     </style>
 </head>
@@ -411,81 +483,74 @@
         </div>
     </section>
 
+    <!-- Signature Section -->
+    <section class="py-16 bg-gradient-to-b from-bloodred-900 to-bloodred-950 relative overflow-hidden">
+        <div class="book-decoration"></div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="bg-gray-900/30 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-bloodred-800 shadow-xl">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-bloodred-400 mb-2 font-heading">With Gratitude</h2>
+                    <div class="signature-line w-32 h-0.5 mx-auto my-4"></div>
+                    <p class="text-bloodred-200 italic">For those who inspire beyond time</p>
+                </div>
+                
+                <div class="signature-container bg-gray-900/40 p-8 rounded-lg border border-bloodred-800/50 mb-10">
+                    <div class="signature text-center">
+                        <div class="mb-6">
+                            <p class="text-gray-400 mb-2">Penned by</p>
+                            <p class="text-3xl font-bold text-bloodred-300 font-signature tracking-wide">liminal mradul</p>
+                        </div>
+                        
+                        <!-- Double-sided sharp needle line -->
+                        <div class="relative my-8 w-full">
+                            <div class="absolute left-1/4 top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 transform bg-bloodred-500"></div>
+                            <div class="mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-bloodred-500 to-transparent"></div>
+                            <div class="absolute right-1/4 top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 transform bg-bloodred-500"></div>
+                        </div>
+                        
+                        <div>
+                            <p class="text-gray-400 mb-2">Known as</p>
+                            <p class="text-2xl text-white font-signature">Mradul Umrao</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dedication-text p-6 rounded-lg text-center italic text-bloodred-100 relative">
+                    <p class="text-lg leading-relaxed mb-6">
+                        "To my guiding star, whose unwavering support illuminated this journey - 
+                        your patience was the quiet strength behind every chapter, 
+                        your encouragement the unseen hand that turned each page."
+                    </p>
+                    
+                    <!-- Special paragraph about her -->
+                    <div class="mt-8 pt-6 border-t border-bloodred-900/30">
+                        <p class="text-base leading-relaxed">
+                            "For the one who taught me that words have souls,<br>
+                            Whose laughter still echoes in empty spaces between lines,<br>
+                            Your absence became the ink that writes itself<br>
+                            Into every truth I discover."
+                        </p>
+                        <div class="mt-6 flex justify-center space-x-2">
+                            <div class="h-1.5 w-1.5 rounded-full bg-bloodred-600"></div>
+                            <div class="h-1.5 w-1.5 rounded-full bg-bloodred-600"></div>
+                            <div class="h-1.5 w-1.5 rounded-full bg-bloodred-600"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="py-16 bg-gradient-to-r from-bloodred-800 to-bloodred-900 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to Master Python?</h2>
             <p class="text-xl max-w-3xl mx-auto mb-10 text-bloodred-100">
-                Be one of them who are the first one to learn Python With Uncompromising Python and become RIndustry Ready with just one book.
+                Be one of them who are the first one to learn Python With Uncompromising Python and become Industry Ready with just one book.
             </p>
             <a href="#" class="inline-block bg-white text-bloodred-800 hover:bg-gray-100 px-8 py-4 rounded-lg font-bold text-lg transition duration-300">
                 Wait For the complete Book For Now
             </a>
-        </div>
-    </section>
-    <div class="signature-section bg-black/90 p-8 rounded-xl border border-bloodred-900/50 shadow-2xl max-w-2xl mx-auto my-12 relative overflow-hidden">
-    <!-- Decorative cap/hat above names -->
-    <div class="cap-decoration absolute -top-8 left-1/2 transform -translate-x-1/2 w-24 h-12">
-        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-8 bg-bloodred-800 rounded-t-full"></div>
-        <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-20 h-2 bg-bloodred-600 rounded-full"></div>
-        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-24 h-6 bg-bloodred-900 rounded-b-full"></div>
-    </div>
-
-    <!-- Signature Section - Place before the footer -->
-<section class="py-16 bg-gradient-to-b from-bloodred-900 to-bloodred-950 relative overflow-hidden">
-    <div class="book-decoration"></div>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="bg-gray-900/30 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-bloodred-800 shadow-xl">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-bloodred-400 mb-2 font-heading">With Gratitude</h2>
-                <div class="signature-line w-32 h-0.5 mx-auto my-4"></div>
-                <p class="text-bloodred-200 italic">For those who inspire beyond time</p>
-            </div>
-            
-            <div class="signature-container bg-gray-900/40 p-8 rounded-lg border border-bloodred-800/50 mb-10">
-                <div class="signature text-center">
-                    <div class="mb-6">
-                        <p class="text-gray-400 mb-2">Penned by</p>
-                        <p class="text-3xl font-bold text-bloodred-300 font-signature tracking-wide">liminal mradul</p>
-                    </div>
-                    
-                    <!-- Double-sided sharp needle line -->
-                    <div class="relative my-8 w-full">
-                        <div class="absolute left-1/4 top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 transform bg-bloodred-500"></div>
-                        <div class="mx-auto h-px w-1/2 bg-gradient-to-r from-transparent via-bloodred-500 to-transparent"></div>
-                        <div class="absolute right-1/4 top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 transform bg-bloodred-500"></div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-gray-400 mb-2">Known as</p>
-                        <p class="text-2xl text-white font-signature">Mradul Umrao</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="dedication-text p-6 rounded-lg text-center italic text-bloodred-100 relative">
-                <p class="text-lg leading-relaxed mb-6">
-                    "To my guiding star, whose unwavering support illuminated this journey - 
-                    your patience was the quiet strength behind every chapter, 
-                    your encouragement the unseen hand that turned each page."
-                </p>
-                
-                <!-- Special paragraph about her -->
-                <div class="mt-8 pt-6 border-t border-bloodred-900/30">
-                    <p class="text-base leading-relaxed">
-                        "For the one who taught me that words have souls,<br>
-                        Whose laughter still echoes in empty spaces between lines,<br>
-                        Your absence became the ink that writes itself<br>
-                        Into every truth I discover."
-                    </p>
-                    <div class="mt-6 flex justify-center space-x-2">
-                        <div class="h-1.5 w-1.5 rounded-full bg-bloodred-600"></div>
-                        <div class="h-1.5 w-1.5 rounded-full bg-bloodred-600"></div>
-                        <div class="h-1.5 w-1.5 rounded-full bg-bloodred-600"></div>
-                    </div>
-                 </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -530,7 +595,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-10 pt-6 text-center">
-                <p>&copy; 2023 Uncompromising Python. All rights reserved.</p>
+                <p>&copy; 2025 Uncompromising Python. All rights reserved.</p>
             </div>
         </div>
     </footer>
