@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chapter 3 — Uncompromising Python</title>
+  <link rel="stylesheet" href="/style.css" /> <!-- Reuse your existing site’s CSS -->
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #fff;
+      color: #111;
+      padding: 2rem;
+      max-width: 800px;
+      margin: auto;
+    }
+    pre, code {
+      background-color: #f4f4f4;
+      padding: 0.5em;
+      border-radius: 6px;
+      overflow-x: auto;
+    }
+    h1, h2, h3 {
+      margin-top: 2rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.3rem;
+    }
+    a {
+      color: #1e88e5;
+    }
+  </style>
+</head>
+<body>
+  <h1>📘 Chapter 3: Rendering Markdown from GitHub</h1>
+  <div id="markdown-content">Loading content...</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    const url = "https://raw.githubusercontent.com/liminal-mradul/Uncompromising-Python/main/Chapter3/content.md";
+
+    fetch(url)
+      .then(res => res.text())
+      .then(md => {
+        const html = marked.parse(md);
+        document.getElementById('markdown-content').innerHTML = html;
+      })
+      .catch(err => {
+        document.getElementById('markdown-content').innerHTML = "⚠️ Failed to load Markdown content.";
+        console.error(err);
+      });
+  </script>
+</body>
+</html>
