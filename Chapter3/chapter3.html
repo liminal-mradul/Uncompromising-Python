@@ -18,39 +18,42 @@
           },
           fontFamily: {
             mono: ['Fira Code', 'monospace'],
+            sans: ['Inter', 'sans-serif']
           }
         }
       }
     }
   </script>
 
-  <!-- ✅ Highlight.js Theme -->
+  <!-- ✅ Highlight.js styles -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
 </head>
-<body class="bg-bgdark min-h-screen p-6 font-mono tracking-wide leading-relaxed">
+<body class="bg-bgdark min-h-screen px-6 py-10 font-sans tracking-wide leading-relaxed">
 
-  <!-- ✅ Page Title -->
-  <header class="mb-10">
-    <h1 class="text-4xl text-blood font-bold border-b-2 border-blood pb-2">
-      Chapter 3: Variables, Data Types
+  <!-- ✅ Title -->
+  <header class="mb-12 text-center">
+    <h1 class="text-5xl font-extrabold text-blood border-b-4 inline-block border-blood pb-2">
+      Chapter 3: The Unforgiving Logic of Data
     </h1>
   </header>
 
   <!-- ✅ Markdown Render Container -->
-  <main id="markdown-content" class="prose prose-invert prose-pre:bg-codebg prose-code:bg-codebg prose-headings:text-blood max-w-3xl mx-auto">
-    <p>Loading content...</p>
+  <main id="markdown-content"
+        class="prose prose-xl prose-invert prose-pre:rounded-lg prose-pre:p-4 prose-code:text-pink-400
+               prose-headings:text-blood max-w-6xl mx-auto">
+    <p class="text-gray-400">Loading content...</p>
   </main>
 
-  <!-- ✅ Marked.js and Highlight.js -->
+  <!-- ✅ Markdown Parser + Syntax Highlighter -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
 
-  <!-- ✅ Markdown Fetch + Highlighting -->
+  <!-- ✅ Render Logic -->
   <script>
     marked.setOptions({
-      highlight: function(code, lang) {
-        return hljs.highlightAuto(code).value;
-      }
+      highlight: (code, lang) => hljs.highlightAuto(code).value,
+      langPrefix: 'hljs language-',
+      breaks: true
     });
 
     const mdURL = "https://raw.githubusercontent.com/liminal-mradul/Uncompromising-Python/main/Chapter3/content.md";
@@ -58,14 +61,11 @@
     fetch(mdURL)
       .then(res => res.text())
       .then(md => {
-        const html = marked.parse(md);
-        document.getElementById("markdown-content").innerHTML = html;
-        document.querySelectorAll('pre code').forEach((block) => {
-          hljs.highlightElement(block);
-        });
+        document.getElementById("markdown-content").innerHTML = marked.parse(md);
+        hljs.highlightAll(); // re-run after DOM updated
       })
       .catch(err => {
-        document.getElementById("markdown-content").innerHTML = "❌ Failed to load content.";
+        document.getElementById("markdown-content").innerHTML = `<p class="text-red-500">❌ Failed to load content.</p>`;
         console.error(err);
       });
   </script>
