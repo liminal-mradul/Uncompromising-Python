@@ -887,9 +887,8 @@ A function is a named, reusable block of code that performs a specific task. You
 
 You define a function using the `def` keyword, followed by the function's name, parentheses `()`, and a colon `:`. The code block that makes up the function's body must be indented.
 
-Python
 
-```
+```python
 # Function Definition Basics
 
 # 1. Start with the 'def' keyword
@@ -932,9 +931,8 @@ Functions are more powerful when they can operate on different pieces of data ea
 
 Think of a function like a specialized machine. Its **parameters** are the specific input trays it has (e.g., "tray for numbers," "tray for text"). The **arguments** are the actual items you put into those trays when you use the machine (e.g., "the number 5," "the word 'apple'").
 
-Python
 
-```
+```python
 # Function with Parameters and Arguments
 
 # 'name' and 'age' are parameters - placeholders for data the function expects
@@ -971,9 +969,8 @@ Often, a function performs a calculation or process and then needs to give a res
 -   If a function doesn't have a `return` statement, it implicitly returns `None` (Python's way of saying "nothing").
     
 
-Python
 
-```
+```python
 # Function with a return value
 
 def add_numbers(num1, num2):
@@ -1027,9 +1024,8 @@ While precise type conversion is your responsibility, users are unpredictable. T
 
 **Basic Syntax and Common Exceptions (Recap & Deeper Dive):**
 
-Python
 
-```
+```python
 try:
     # Code that you *expect* might cause an error (e.g., type conversion, file operations).
     # If an error happens here, Python stops this block and jumps directly to 'except'.
@@ -1062,9 +1058,8 @@ print("Program continues gracefully...") # This line always runs, whether there 
 
 **The `else` Block (Optional Success Path):** An `else` block can be added after all `except` blocks. Code in the `else` block will execute **only if no exception was raised** in the `try` block.
 
-Python
 
-```
+```python
 # Example with 'else' block
 try:
     value = int(input("Enter an integer: "))
@@ -1105,9 +1100,7 @@ The `if __name__ == "__main__":` block simply checks this variable. If the condi
 
 **Syntax:**
 
-Python
-
-```
+```python
 # my_module.py
 
 # This is a function. It's reusable and can be imported.
@@ -1150,9 +1143,8 @@ This guard is a cornerstone of modular, professional Python development, especia
     
     -   **Illustrative Example of Reusability:** Let's create a second file named `app_using_my_module.py` in the **same directory**:
         
-        Python
         
-        ```
+        ```python
         # app_using_my_module.py
         import my_module # This imports my_module.py as a module
         
