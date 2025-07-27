@@ -423,6 +423,91 @@
             </a>
         </div>
     </section>
+    <div class="signature-section bg-black/90 p-8 rounded-xl border border-bloodred-900/50 shadow-2xl max-w-2xl mx-auto my-12 relative overflow-hidden">
+    <!-- Decorative cap/hat above names -->
+    <div class="cap-decoration absolute -top-8 left-1/2 transform -translate-x-1/2 w-24 h-12">
+        <div class="absolute top-0 left-1/2 transform -translate-x-1/2 w-16 h-8 bg-bloodred-800 rounded-t-full"></div>
+        <div class="absolute top-2 left-1/2 transform -translate-x-1/2 w-20 h-2 bg-bloodred-600 rounded-full"></div>
+        <div class="absolute top-6 left-1/2 transform -translate-x-1/2 w-24 h-6 bg-bloodred-900 rounded-b-full"></div>
+    </div>
+
+    <!-- Signature content -->
+    <div class="text-center relative z-10">
+        <!-- Your names with hanging caps -->
+        <div class="name-display mb-6">
+            <p class="text-bloodred-300 text-sm mb-1">Penned by</p>
+            <h3 class="text-4xl font-bold text-white font-serif relative">
+                <span class="initial-cap absolute -left-6 -top-2 text-5xl text-bloodred-500">L</span>iminal <span class="initial-cap absolute left-1/2 -ml-8 -top-2 text-5xl text-bloodred-500">M</span>radul
+            </h3>
+            
+            <!-- Sharp needle-like line -->
+            <div class="needle-line mx-auto mt-4 mb-6 w-48 h-px relative">
+                <div class="absolute inset-0 bg-gradient-to-r from-transparent via-bloodred-500 to-transparent"></div>
+                <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 rotate-45 bg-bloodred-500"></div>
+            </div>
+            
+            <p class="text-bloodred-300 text-sm mb-1">Known as</p>
+            <h3 class="text-3xl font-medium text-gray-300 font-serif relative">
+                <span class="initial-cap absolute -left-6 -top-1 text-4xl text-bloodred-500">M</span>radul <span class="initial-cap absolute left-1/2 -ml-6 -top-1 text-4xl text-bloodred-500">U</span>mrao
+            </h3>
+        </div>
+
+        <!-- Subtle tribute -->
+        <div class="tribute mt-10 pt-6 border-t border-bloodred-900/30">
+            <p class="text-bloodred-200 italic font-serif leading-relaxed">
+                "To the starlight that shaped my constellations,<br>
+                Whose laughter still echoes in these lines,<br>
+                Your wisdom remains the compass<br>
+                That guides each word home."
+            </p>
+            <div class="mt-4 flex justify-center">
+                <div class="w-8 h-8 border-2 border-bloodred-700 rounded-full flex items-center justify-center">
+                    <div class="w-4 h-4 bg-bloodred-600 rounded-full animate-pulse"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .signature-section {
+        background: linear-gradient(145deg, #111 0%, #1a0000 100%);
+        box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5), 
+                    inset 0 0 20px rgba(220, 38, 38, 0.1);
+    }
+    
+    .cap-decoration {
+        filter: drop-shadow(0 4px 6px rgba(220, 38, 38, 0.3));
+    }
+    
+    .initial-cap {
+        font-family: 'Cinzel', serif;
+        text-shadow: 0 0 8px rgba(220, 38, 38, 0.7);
+    }
+    
+    .needle-line {
+        background: linear-gradient(90deg, 
+                      transparent, 
+                      rgba(220, 38, 38, 0.3) 20%, 
+                      rgba(220, 38, 38, 0.7) 50%, 
+                      rgba(220, 38, 38, 0.3) 80%, 
+                      transparent);
+    }
+    
+    .tribute {
+        position: relative;
+    }
+    
+    .tribute::before {
+        content: "⋆";
+        position: absolute;
+        top: -12px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(220, 38, 38, 0.5);
+        font-size: 24px;
+    }
+</style>
 
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 py-12">
@@ -469,47 +554,6 @@
             </div>
         </div>
     </footer>
-    <!-- Signature Section - Place before the footer -->
-<section class="py-16 bg-gradient-to-b from-bloodred-900 to-bloodred-950 relative overflow-hidden">
-    <div class="book-decoration"></div>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="bg-gray-900/30 backdrop-blur-sm rounded-xl p-8 md:p-12 border border-bloodred-800 shadow-xl">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold text-bloodred-400 mb-2 font-heading">With Gratitude</h2>
-                <div class="signature-line w-32 h-0.5 mx-auto my-4"></div>
-                <p class="text-bloodred-200 italic">For those who inspire and endure</p>
-            </div>
-            
-            <div class="signature-container bg-gray-900/40 p-8 rounded-lg border border-bloodred-800/50 mb-10">
-                <div class="signature text-center">
-                    <div class="mb-6">
-                        <p class="text-gray-400 mb-2">Penned by</p>
-                        <p class="text-3xl font-bold text-bloodred-300 font-signature tracking-wide">liminal mradul</p>
-                    </div>
-                    
-                    <div class="flex justify-center mb-8">
-                        <div class="w-24 h-px bg-bloodred-600 my-4"></div>
-                        <span class="mx-4 text-bloodred-500 font-bold">|</span>
-                        <div class="w-24 h-px bg-bloodred-600 my-4"></div>
-                    </div>
-                    
-                    <div>
-                        <p class="text-gray-400 mb-2">Known as</p>
-                        <p class="text-2xl text-white font-signature">Mradul Umrao</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="dedication-text p-6 rounded-lg text-center italic text-bloodred-100 relative">
-                <p class="text-lg leading-relaxed">
-                    "To my guiding star, whose unwavering support illuminated this journey - 
-                    your patience was the quiet strength behind every chapter, 
-                    your encouragement the unseen hand that turned each page."
-                </p>
-            </div>
-        </div>
-    </div>
-</section>
 
     <script>
         // Theme toggle
