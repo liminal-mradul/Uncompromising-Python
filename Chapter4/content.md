@@ -1203,3 +1203,141 @@ For clarity, we'll often use a simplified conceptual 8-bit representation for ou
       * **Competitive Programming:** Bitwise tricks are common for optimizing algorithms involving subsets, combinations, or graph traversals.
 
 *The uncompromising programmer understands that bitwise operators are not a daily tool for most applications, but when the problem domain touches on low-level data representation, extreme performance, or specific algorithms, they become indispensable. They demystify their behavior by always thinking in terms of bits and two's complement.*
+
+-----
+
+### **7. Membership Operators: Checking for Presence**
+
+Membership operators are used to test whether a value or variable is found in a sequence (like a string, list, or tuple) or a collection (like a set or dictionary). They are highly intuitive and produce a Boolean result (`True` or `False`). For the uncompromising programmer, knowing how these operators work internally, and their performance characteristics across different data structures, is key to writing efficient and robust code.
+
+#### **The Operators: `in` and `not in`**
+
+1.  **`in` Operator:**
+
+      * Returns `True` if the specified value is found in the sequence/collection.
+      * Returns `False` otherwise.
+
+    <!-- end list -->
+
+    ```python
+    my_list = [10, 20, 30, 40, 50]
+    print(f"30 in my_list: {30 in my_list}")   # Output: True
+    print(f"99 in my_list: {99 in my_list}")   # Output: False
+
+    my_string = "Hello Python"
+    print(f"'Python' in my_string: {'Python' in my_string}") # Output: True
+    print(f"'Java' in my_string: {'Java' in my_string}")     # Output: False
+    print(f"'ell' in my_string: {'ell' in my_string}")       # Output: True (substring search)
+
+    my_tuple = (1, 2, 3, 'a', 'b')
+    print(f"'a' in my_tuple: {'a' in my_tuple}") # Output: True
+
+    my_set = {100, 200, 300}
+    print(f"200 in my_set: {200 in my_set}")   # Output: True
+
+    my_dict = {'name': 'Alice', 'age': 30, 'city': 'New York'}
+    # For dictionaries, 'in' checks for keys
+    print(f"'age' in my_dict: {'age' in my_dict}")     # Output: True
+    print(f"'Alice' in my_dict: {'Alice' in my_dict}") # Output: False (checks keys, not values)
+    print(f"30 in my_dict.values(): {30 in my_dict.values()}") # To check values, use .values()
+    ```
+
+2.  **`not in` Operator:**
+
+      * Returns `True` if the specified value is *not* found in the sequence/collection.
+      * Returns `False` otherwise. It's simply the negation of `in`.
+
+    <!-- end list -->
+
+    ```python
+    my_list = [10, 20, 30]
+    print(f"40 not in my_list: {40 not in my_list}") # Output: True
+    print(f"20 not in my_list: {20 not in my_list}") # Output: False
+
+    my_string = "apple"
+    print(f"'z' not in my_string: {'z' not in my_string}") # Output: True
+    ```
+
+#### **How They Translate: `x in y` $\\rightarrow$ `y.__contains__(x)`**
+
+Python's object model (Chapter 3) dictates that operators are essentially syntactic sugar for special "dunder" methods. The `in` operator is no exception. When you write `x in y`, Python internally attempts to call the `y.__contains__(x)` method.
+
+This understanding is crucial for:
+
+1.  **Custom Classes:** If you want your custom objects to support the `in` operator (e.g., if you create a custom collection type), you must implement the `__contains__` method.
+2.  **Performance Implications:** The efficiency of the `in` operator depends entirely on how the `__contains__` method is implemented for the specific data type.
+
+Let's look at how built-in types implement `__contains__` conceptually:
+
+  * **Lists (`list`):** The `__contains__` method iterates through the list elements, comparing each one to the target value until a match is found or the end of the list is reached.
+      * **Performance:** $O(N)$ - linear time. In the worst case, it has to check every element.
+  * **Strings (`str`):** The `__contains__` method performs a substring search. This is optimized in C-level implementations but is still fundamentally a linear search.
+      * **Performance:** $O(M \\times N)$ in naive worst case, but optimized algorithms (like Boyer-Moore, Rabin-Karp) make it faster in practice, closer to $O(N+M)$ where N is text length, M is pattern length.
+  * **Tuples (`tuple`):** Similar to lists, it iterates through elements.
+      * **Performance:** $O(N)$ - linear time.
+  * **Sets (`set`):** Sets are implemented using hash tables. The `__contains__` method calculates the hash of the target value and directly checks if an entry exists at that hash location.
+      * **Performance:** $O(1)$ - constant time on average, making it extremely fast for membership checks. This is a primary reason to use sets when frequent membership testing is required.
+  * **Dictionaries (`dict`):** The `__contains__` method for dictionaries checks if a key is present. It also uses hash tables.
+      * **Performance:** $O(1)$ - constant time on average for key lookups.
+
+<!-- end list -->
+
+```python
+# Custom class demonstrating __contains__
+class MyCustomCollection:
+    def __init__(self, elements):
+        self._elements = elements # Internal list for simplicity
+
+    def __contains__(self, item):
+        print(f"__contains__ called for '{item}' in MyCustomCollection")
+        return item in self._elements # Delegate to list's in operator
+
+    def __repr__(self):
+        return f"MyCustomCollection({self._elements})"
+
+my_collection = MyCustomCollection([1, 2, 3, 4, 5])
+
+print(f"3 in my_collection: {3 in my_collection}")
+# Output:
+# __contains__ called for '3' in MyCustomCollection
+# 3 in my_collection: True
+
+print(f"10 in my_collection: {10 in my_collection}")
+# Output:
+# __contains__ called for '10' in MyCustomCollection
+# 10 in my_collection: False
+```
+
+*The uncompromising programmer considers the Big O notation performance of `in` for different data structures. They know that `set` and `dict` offer average $O(1)$ lookup, making them ideal for high-frequency membership checks, whereas `list` and `tuple` are $O(N)$.*
+
+#### **Pitfall: `x in some_string` - Substring vs. Character**
+
+A common conceptual pitfall, especially for beginners, is implicitly assuming `x in some_string` *only* checks for single characters, or that it behaves like checking for elements in a list of characters.
+
+Python's `in` operator for strings performs a **substring search**. This means it will return `True` if the *entire sequence* `x` is found anywhere within `some_string`.
+
+```python
+sentence = "The quick brown fox jumps over the lazy dog."
+
+# Expected: single character check
+print(f"'q' in sentence: {'q' in sentence}") # Output: True
+
+# Expected: substring check - works as intended
+print(f"'quick' in sentence: {'quick' in sentence}") # Output: True
+
+# Pitfall scenario: assuming only 'c', 'k', or 'u' individually would match
+# It requires the *sequence* 'uck' to be present.
+print(f"'uck' in sentence: {'uck' in sentence}")     # Output: True (from "quick")
+
+# Will not find 'q', 'u', 'i', 'c', 'k' separately
+print(f"'quik' in sentence: {'quik' in sentence}")   # Output: False (no exact substring match)
+
+# This is NOT equivalent to:
+# list_of_chars = list(sentence)
+# 'q' in list_of_chars # True
+# 'quick' in list_of_chars # False
+```
+
+*The uncompromising programmer is explicit about string membership: `in` searches for a contiguous substring. If you need to check for the presence of *any* character from a set, you might use a loop or set intersection, not direct string `in` for multi-character `x`.*
+
+-----
