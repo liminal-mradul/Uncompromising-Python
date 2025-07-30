@@ -667,3 +667,447 @@ print(f"False == 0 == '': {False == 0 == ''}") # Effectively (False == 0) and (0
 *The uncompromising programmer harnesses chained comparisons for concise, mathematical expressions, but always validates their understanding of how individual comparisons resolve, especially when different types are involved, to avoid subtle bugs.*
 
 -----
+
+### **5. Logical Operators: Crafting Conditional Logic**
+
+Logical operators are indispensable tools for building complex conditions and controlling the flow of your program. They allow you to combine or negate Boolean expressions (`True` or `False`). An uncompromising programmer not only knows what `and`, `or`, and `not` do but deeply understands their short-circuiting behavior and how they can be cleverly used beyond simple Boolean results.
+
+#### **`and`, `or`, `not` with Truth Tables**
+
+Python's logical operators operate on Boolean values (`True` or `False`). However, they also leverage Python's concept of "truthiness" and "falsiness" (introduced in Chapter 3.5), meaning they can evaluate *any* object.
+
+1.  **`and` Operator:**
+
+      * Returns `True` if **both** operands are `True`.
+      * Returns `False` if **either** or **both** operands are `False`.
+
+    | Operand 1 | Operand 2 | `Operand 1 and Operand 2` |
+    | :-------- | :-------- | :------------------------ |
+    | `True`    | `True`    | `True`                    |
+    | `True`    | `False`   | `False`                   |
+    | `False`   | `True`    | `False`                   |
+    | `False`   | `False`   | `False`                   |
+
+    ```python
+    print(f"True and True: {True and True}")      # True
+    print(f"True and False: {True and False}")    # False
+    print(f"False and True: {False and True}")    # False
+    print(f"False and False: {False and False}")  # False
+
+    # With truthy/falsy values
+    print(f"10 and 'hello': {10 and 'hello'}") # Output: 'hello' (both truthy, returns second)
+    print(f"0 and 'world': {0 and 'world'}")   # Output: 0 (first is falsy, returns first)
+    print(f"'Python' and []: {'Python' and []}") # Output: [] (second is falsy, returns second)
+    ```
+
+2.  **`or` Operator:**
+
+      * Returns `True` if **either** or **both** operands are `True`.
+      * Returns `False` only if **both** operands are `False`.
+
+    | Operand 1 | Operand 2 | `Operand 1 or Operand 2` |
+    | :-------- | :-------- | :----------------------- |
+    | `True`    | `True`    | `True`                   |
+    | `True`    | `False`   | `True`                   |
+    | `False`   | `True`    | `True`                   |
+    | `False`   | `False`   | `False`                  |
+
+    ```python
+    print(f"True or True: {True or True}")      # True
+    print(f"True or False: {True or False}")    # True
+    print(f"False or True: {False or True}")    # True
+    print(f"False or False: {False or False}")  # False
+
+    # With truthy/falsy values
+    print(f"10 or 'hello': {10 or 'hello'}") # Output: 10 (first is truthy, returns first)
+    print(f"0 or 'world': {0 or 'world'}")   # Output: 'world' (first is falsy, returns second)
+    print(f"'Python' or []: {'Python' or []}") # Output: 'Python' (first is truthy, returns first)
+    ```
+
+3.  **`not` Operator:**
+
+      * A unary operator (takes one operand).
+      * Inverts the Boolean value of the operand. `not True` is `False`, `not False` is `True`.
+
+    | Operand | `not Operand` |
+    | :------ | :------------ |
+    | `True`  | `False`       |
+    | `False` | `True`        |
+
+    ```python
+    print(f"not True: {not True}")       # False
+    print(f"not False: {not False}")     # True
+
+    # With truthy/falsy values
+    print(f"not 0: {not 0}")             # True (0 is falsy, not 0 is True)
+    print(f"not 10: {not 10}")           # False (10 is truthy, not 10 is False)
+    print(f"not '': {not ''}")           # True (empty string is falsy, not '' is True)
+    print(f"not 'hello': {not 'hello'}") # False ('hello' is truthy, not 'hello' is False)
+    ```
+
+    *The uncompromising programmer understands that `and` and `or` don't always return `True` or `False`. They return one of the operands themselves, depending on their truthiness/falsiness. `not` always returns a strict `True` or `False`.*
+
+#### **Short-Circuiting in Detail**
+
+A critical performance and logic feature of Python's `and` and `or` operators is **short-circuiting**. This means the second operand is *not* evaluated if the result of the expression can be determined solely from the first operand.
+
+  * **`and` Short-Circuiting:** If the first operand of an `and` expression evaluates to `False` (or a falsy value), the entire expression is immediately known to be `False`. Python stops evaluation there and returns the *first operand*.
+
+      * **Trace Visual:**
+        ```
+        result = A and B
+        # If A is False (or falsy):
+        #   result is A. B is never evaluated.
+        # If A is True (or truthy):
+        #   B is evaluated. result is B.
+        ```
+      * **Example:**
+        ```python
+        def risky_operation():
+            print("Risky operation executed!")
+            # This could, for example, access a network, divide by zero, etc.
+            return True
+
+        x = 0 # Falsy value
+        # The 'risky_operation()' is NOT called because 'x' is falsy.
+        # The expression short-circuits.
+        outcome = x and risky_operation()
+        print(f"Outcome: {outcome}")
+        # Output:
+        # Outcome: 0
+
+        y = 10 # Truthy value
+        # 'risky_operation()' IS called because 'y' is truthy.
+        outcome = y and risky_operation()
+        print(f"Outcome: {outcome}")
+        # Output:
+        # Risky operation executed!
+        # Outcome: True
+        ```
+
+  * **`or` Short-Circuiting:** If the first operand of an `or` expression evaluates to `True` (or a truthy value), the entire expression is immediately known to be `True`. Python stops evaluation there and returns the *first operand*.
+
+      * **Trace Visual:**
+        ```
+        result = A or B
+        # If A is True (or truthy):
+        #   result is A. B is never evaluated.
+        # If A is False (or falsy):
+        #   B is evaluated. result is B.
+        ```
+      * **Example:**
+        ```python
+        def default_value():
+            print("Default value generator executed!")
+            return "DEFAULT"
+
+        user_input = "" # Falsy value
+        # 'default_value()' IS called because 'user_input' is falsy.
+        # The expression does not short-circuit on the first operand.
+        choice = user_input or default_value()
+        print(f"Choice: {choice}")
+        # Output:
+        # Default value generator executed!
+        # Choice: DEFAULT
+
+        user_input_valid = "User Defined Value" # Truthy value
+        # 'default_value()' is NOT called because 'user_input_valid' is truthy.
+        # The expression short-circuits.
+        choice_valid = user_input_valid or default_value()
+        print(f"Choice (valid): {choice_valid}")
+        # Output:
+        # Choice (valid): User Defined Value
+        ```
+
+    *The uncompromising programmer leverages short-circuiting for both efficiency and robust logic, often to avoid unnecessary computations or potential errors by strategically placing conditions that prevent the evaluation of risky expressions.*
+
+#### **Using Logical Operators for Defaulting Values (The `or` Trick)**
+
+The short-circuiting behavior of the `or` operator is frequently used as a concise and Pythonic way to provide default values when an initial variable might be empty, `None`, or otherwise falsy.
+
+```python
+# Common Pattern: config = user_input or default
+
+user_name = input("Enter your name (optional): ") # User types nothing (empty string)
+display_name = user_name or "Guest" # If user_name is falsy (empty string), use "Guest"
+print(f"Hello, {display_name}!")
+
+user_name_entered = "Alice"
+display_name_entered = user_name_entered or "Guest"
+print(f"Hello, {display_name_entered}!")
+
+# Example with a function call as default
+def get_default_config():
+    print("Generating default config...")
+    return {"theme": "light", "notifications": True}
+
+user_config = {} # Falsy (empty dictionary)
+app_config = user_config or get_default_config()
+print(f"App config: {app_config}")
+
+user_config_provided = {"theme": "dark"} # Truthy
+app_config_provided = user_config_provided or get_default_config()
+print(f"App config (provided): {app_config_provided}")
+```
+
+**Caveat for the Uncompromising Programmer:**
+
+While elegant, this `or` trick has a subtle pitfall: it treats *any* falsy value (0, `False`, `None`, `""`, `[]`, `{}`) as needing a default. If `0` or `False` is a legitimate, desired input value that should *not* be replaced by a default, then this pattern is inappropriate. In such cases, use an explicit `if` statement or the ternary operator:
+
+```python
+# Problem: We want score 0 to be valid, but 'or' treats it as default.
+user_score_input = 0 # Valid score, but falsy
+actual_score_wrong = user_score_input or 100 # This will make actual_score_wrong = 100
+print(f"Wrong score handling (0 treated as default): {actual_score_wrong}")
+
+# Correct way: Explicitly check for None or specific invalid states
+user_score_input_none = None # Or could be user_score_input = 0
+final_score_correct = user_score_input_none if user_score_input_none is not None else 100
+print(f"Correct score handling (None treated as default): {final_score_correct}")
+
+# Or even better, an explicit if check:
+if user_score_input_none is None:
+    final_score_correct_if = 100
+else:
+    final_score_correct_if = user_score_input_none
+print(f"Correct score handling (if statement): {final_score_correct_if}")
+```
+
+*The uncompromising programmer chooses the `or` defaulting trick for concise code only when `False`, `0`, `""`, `[]`, etc., are truly considered "empty" or "undesired" and should be replaced. Otherwise, they use more explicit conditional checks to avoid surprising behavior.*
+
+-----
+
+### **6. Bitwise Operators: Operating on the Raw Bits**
+
+Bitwise operators perform operations directly on the individual binary digits (bits) of integer numbers. While less commonly used in everyday Python scripting, they are indispensable for low-level programming, specific optimizations, working with flags, permissions, and certain cryptographic or hashing algorithms. An uncompromising programmer understands that working with bits provides granular control and can unlock powerful, efficient solutions when applicable.
+
+#### **The Bitwise Operators: `&`, `|`, `^`, `~`, `<<`, `>>`**
+
+To understand bitwise operations, it's essential to visualize numbers in their binary representation. Python's built-in `bin()` function is invaluable for this. It returns the binary string prefixed with `0b`.
+
+| Operator | Name             | Description                                          | Example (Decimal) | Example (Binary)                 | Result (Binary) | Result (Decimal) |
+| :------- | :--------------- | :--------------------------------------------------- | :---------------- | :------------------------------- | :-------------- | :--------------- |
+| `&`      | Bitwise AND      | Sets each bit to 1 if both corresponding bits are 1. | `5 & 3`           | `0b101 & 0b011`                  | `0b001`         | `1`              |
+| `|`      | Bitwise OR       | Sets each bit to 1 if at least one corresponding bit is 1. | `5 | 3`           | `0b101 | 0b011`                  | `0b111`         | `7`              |
+| `^`      | Bitwise XOR (Exclusive OR) | Sets each bit to 1 if bits are different.            | `5 ^ 3`           | `0b101 ^ 0b011`                  | `0b110`         | `6`              |
+| `~`      | Bitwise NOT      | Inverts all bits (flips 0s to 1s, 1s to 0s).       | `~5`              | `~0b101`                         | `0b...11111010` (depends on sign/representation) | `-6`             |
+| `<<`     | Left Shift       | Shifts bits left, filling with 0s on the right. Multiplies by powers of 2. | `5 << 1`          | `0b101 << 1`                     | `0b1010`        | `10`             |
+| `>>`     | Right Shift      | Shifts bits right, preserving sign (arithmetic shift). Divides by powers of 2. | `5 >> 1`          | `0b101 >> 1`                     | `0b010`         | `2`              |
+
+Let's break down each with examples:
+
+#### **`&` (Bitwise AND)**
+
+The result bit is 1 if *both* corresponding bits are 1. Otherwise, it's 0.
+
+```python
+a = 5  # Binary: 0101
+b = 3  # Binary: 0011
+result = a & b # Binary: 0001 (Decimal: 1)
+print(f"Decimal: {a} & {b} = {result}")      # Output: 5 & 3 = 1
+print(f"Binary: {bin(a)} & {bin(b)} = {bin(result)}") # Output: 0b101 & 0b11 = 0b1
+```
+
+#### **`|` (Bitwise OR)**
+
+The result bit is 1 if *at least one* of the corresponding bits is 1. Otherwise, it's 0.
+
+```python
+a = 5  # Binary: 0101
+b = 3  # Binary: 0011
+result = a | b # Binary: 0111 (Decimal: 7)
+print(f"Decimal: {a} | {b} = {result}")      # Output: 5 | 3 = 7
+print(f"Binary: {bin(a)} | {bin(b)} = {bin(result)}") # Output: 0b101 | 0b11 = 0b111
+```
+
+#### **`^` (Bitwise XOR - Exclusive OR)**
+
+The result bit is 1 if the corresponding bits are *different*. Otherwise, it's 0.
+
+```python
+a = 5  # Binary: 0101
+b = 3  # Binary: 0011
+result = a ^ b # Binary: 0110 (Decimal: 6)
+print(f"Decimal: {a} ^ {b} = {result}")      # Output: 5 ^ 3 = 6
+print(f"Binary: {bin(a)} ^ {bin(b)} = {bin(result)}") # Output: 0b101 ^ 0b11 = 0b110
+
+# XOR is great for swapping without temp variable, and for simple encryption/decryption
+val1 = 10 # 0b1010
+val2 = 7  # 0b0111
+
+val1 = val1 ^ val2 # val1 = 0b1010 ^ 0b0111 = 0b1101 (13)
+val2 = val1 ^ val2 # val2 = 0b1101 ^ 0b0111 = 0b1010 (10) (Original val1)
+val1 = val1 ^ val2 # val1 = 0b1101 ^ 0b1010 = 0b0111 (7) (Original val2)
+
+print(f"Swapped using XOR: val1={val1}, val2={val2}") # val1=7, val2=10
+```
+
+#### **`~` (Bitwise NOT)**
+
+This unary operator inverts all the bits of its operand. For positive integers `x`, `~x` is equivalent to `-(x + 1)`. This is due to how Python (and most systems) represents signed integers using two's complement.
+
+```python
+a = 5  # Binary: ...00000101
+result = ~a # Binary: ...11111010 (effectively -6)
+print(f"Decimal: ~{a} = {result}")      # Output: ~5 = -6
+print(f"Binary: ~{bin(a)} = {bin(result)}") # Output: ~0b101 = -0b110 (Python often shows negative binary as prefix -0b)
+
+b = -5 # Binary: ...11111011 (two's complement)
+result_b = ~b # Binary: ...00000100 (effectively 4)
+print(f"Decimal: ~{b} = {result_b}")    # Output: ~-5 = 4
+```
+
+#### **`<<` (Left Shift)**
+
+Shifts the bits of the left operand to the left by the number of positions specified by the right operand. Zeroes are filled in on the right. This is equivalent to multiplying the number by $2^{\\text{n}}$, where `n` is the shift amount.
+
+```python
+a = 5  # Binary: 0101
+result = a << 1 # Shift left by 1: 01010 (10)
+print(f"Decimal: {a} << 1 = {result}")      # Output: 5 << 1 = 10
+print(f"Binary: {bin(a)} << 1 = {bin(result)}") # Output: 0b101 << 1 = 0b1010
+
+print(f"5 << 2 = {5 << 2}") # 5 * 2^2 = 5 * 4 = 20 (0b10100)
+```
+
+#### **`>>` (Right Shift)**
+
+Shifts the bits of the left operand to the right by the number of positions specified by the right operand. For positive numbers, zeroes are filled in on the left. For negative numbers, Python performs an arithmetic right shift (sign bit is extended) to preserve the sign. This is equivalent to integer division by $2^{\\text{n}}$.
+
+```python
+a = 10 # Binary: 1010
+result = a >> 1 # Shift right by 1: 0101 (5)
+print(f"Decimal: {a} >> 1 = {result}")      # Output: 10 >> 1 = 5
+print(f"Binary: {bin(a)} >> 1 = {bin(result)}") # Output: 0b1010 >> 1 = 0b101
+
+b = -10 # Binary representation (two's complement): ...11110110
+result_b = b >> 1 # Shift right by 1: ...11111011 (-5)
+print(f"Decimal: {b} >> 1 = {result_b}")    # Output: -10 >> 1 = -5
+```
+
+*The uncompromising programmer understands that bit shifts are highly efficient for multiplication and division by powers of two, often outperforming traditional arithmetic for such specific operations.*
+
+#### **Bit Masking, Toggling, Shifting**
+
+Bitwise operations are powerful for manipulating specific bits or sets of bits within an integer.
+
+  * **Bit Masking (Checking if a bit is set):** Use `&` with a mask where only the desired bit is 1.
+
+    ```python
+    flags = 0b10110 # Example flags: ..._ _ 10110
+    # Let's say:
+    # Bit 0 (rightmost) = Feature A (1)
+    # Bit 1 = Feature B (0)
+    # Bit 2 = Feature C (1)
+    # Bit 3 = Feature D (1)
+    # Bit 4 = Feature E (0)
+
+    # Check if Feature C (bit 2) is enabled
+    FEATURE_C = 0b100 # Mask for bit 2 (which is 4 in decimal)
+    if (flags & FEATURE_C) != 0: # Or just `if flags & FEATURE_C:` since 0 is falsy
+        print("Feature C is enabled!") # Output: Feature C is enabled!
+
+    # Check if Feature B (bit 1) is enabled
+    FEATURE_B = 0b10  # Mask for bit 1 (which is 2 in decimal)
+    if (flags & FEATURE_B) != 0:
+        print("Feature B is enabled!")
+    else:
+        print("Feature B is disabled.") # Output: Feature B is disabled.
+    ```
+
+  * **Setting a Bit:** Use `|` with a mask where the desired bit is 1.
+
+    ```python
+    flags = 0b100 # Initial flags
+    print(f"Initial flags: {bin(flags)}") # 0b100
+
+    # Enable Feature A (bit 0)
+    FEATURE_A = 0b1
+    flags = flags | FEATURE_A
+    print(f"Flags after enabling Feature A: {bin(flags)}") # 0b101 (5)
+    ```
+
+  * **Clearing/Unsetting a Bit:** Use `&` with the bitwise NOT (`~`) of a mask.
+
+    ```python
+    flags = 0b10110 # Current flags
+    print(f"Initial flags: {bin(flags)}") # 0b10110
+
+    # Disable Feature C (bit 2)
+    FEATURE_C = 0b100
+    flags = flags & (~FEATURE_C) # Invert mask then AND
+    print(f"Flags after disabling Feature C: {bin(flags)}") # 0b10010 (18)
+    ```
+
+  * **Toggling a Bit:** Use `^` (XOR) with a mask.
+
+    ```python
+    flags = 0b1010 # Initial flags
+    print(f"Initial flags: {bin(flags)}") # 0b1010
+
+    # Toggle Feature B (bit 1)
+    FEATURE_B = 0b10
+    flags = flags ^ FEATURE_B
+    print(f"Flags after toggling Feature B (1st time): {bin(flags)}") # 0b1000 (8)
+
+    flags = flags ^ FEATURE_B
+    print(f"Flags after toggling Feature B (2nd time): {bin(flags)}") # 0b1010 (10)
+    ```
+
+#### **Use Cases: Permissions, Optimization, XOR Tricks**
+
+  * **Permissions/Flags:** This is a classic use case. Instead of storing many `True`/`False` variables, an integer can represent a set of permissions where each bit corresponds to a specific access right (e.g., read, write, execute).
+
+    ```python
+    READ  = 0b001 # 1
+    WRITE = 0b010 # 2
+    EXEC  = 0b100 # 4
+
+    user_permissions = READ | WRITE # User has read and write permissions (0b011 = 3)
+
+    if (user_permissions & READ):
+        print("User has read access.")
+    if (user_permissions & EXEC):
+        print("User has execute access.") # This won't print
+    ```
+
+  * **Optimization (Multiplication/Division by Powers of 2):** As mentioned, `<< n` is equivalent to `* (2**n)` and `>> n` is equivalent to `// (2**n)`. These bitwise operations can be significantly faster than general multiplication/division for fixed-power-of-2 factors, though modern Python interpreters and hardware often optimize arithmetic operations, reducing the practical performance difference for simple cases. Still, it's good to know for deep optimization.
+
+  * **XOR Tricks:**
+
+      * **Swapping two numbers without a temporary variable:** Demonstrated above.
+      * **Finding the unique element:** In an array where every element appears twice except for one, XORing all elements together will yield the unique element (since `x ^ x = 0` and `x ^ 0 = x`). This is a common interview question.
+
+#### **Binary Explanation Tools (`bin()`, Bit Positions)**
+
+  * **`bin(integer)`:** Returns the binary representation of an integer as a string prefixed with `0b`.
+
+    ```python
+    print(bin(42))     # Output: 0b101010
+    print(bin(-10))    # Output: -0b1010
+    ```
+
+  * **Understanding Bit Positions:**
+    Bits are numbered from right to left, starting at 0.
+    `... 2^3  2^2  2^1  2^0`
+    `... 8    4    2    1`
+    For `0b101`:
+
+      * Bit 0 is 1 (value $1 \\times 2^0 = 1$)
+      * Bit 1 is 0 (value $0 \\times 2^1 = 0$)
+      * Bit 2 is 1 (value $1 \\times 2^2 = 4$)
+        Sum: $1 + 0 + 4 = 5$.
+
+    To generate a mask for a specific bit `n` (which has value $2^n$), you can use `1 << n`.
+
+    ```python
+    # Mask for bit 0 (value 1)
+    print(f"Mask for bit 0: {bin(1 << 0)}") # 0b1
+
+    # Mask for bit 3 (value 8)
+    print(f"Mask for bit 3: {bin(1 << 3)}") # 0b1000
+    ```
+
+*The uncompromising programmer recognizes bitwise operators as powerful tools for specialized tasks, especially when dealing with low-level data representation, flags, or performance-critical numeric operations where powers of two are involved. They understand that while `bin()` helps visualize, the operations are truly mathematical manipulations of integer values.*
+
+-----
