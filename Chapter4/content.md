@@ -877,237 +877,329 @@ print(f"Correct score handling (if statement): {final_score_correct_if}")
 
 -----
 
+
 ### **6. Bitwise Operators: Operating on the Raw Bits**
 
-Bitwise operators perform operations directly on the individual binary digits (bits) of integer numbers. While less commonly used in everyday Python scripting, they are indispensable for low-level programming, specific optimizations, working with flags, permissions, and certain cryptographic or hashing algorithms. An uncompromising programmer understands that working with bits provides granular control and can unlock powerful, efficient solutions when applicable.
+Bitwise operators manipulate the individual binary digits (bits) of integer numbers. While often overlooked in high-level programming, mastering them provides unparalleled control over data representation and unlocks powerful, efficient solutions in specific problem domains. Thus specifically here we will be more detailed.
 
-#### **The Bitwise Operators: `&`, `|`, `^`, `~`, `<<`, `>>`**
+To truly understand these operators, we must visualize numbers not just as decimals, but as sequences of `0`s and `1`s.
 
-To understand bitwise operations, it's essential to visualize numbers in their binary representation. Python's built-in `bin()` function is invaluable for this. It returns the binary string prefixed with `0b`.
+#### **Refresher: Binary Numbers and Two's Complement**
 
-| Operator | Name             | Description                                          | Example (Decimal) | Example (Binary)                 | Result (Binary) | Result (Decimal) |
-| :------- | :--------------- | :--------------------------------------------------- | :---------------- | :------------------------------- | :-------------- | :--------------- |
-| `&`      | Bitwise AND      | Sets each bit to 1 if both corresponding bits are 1. | `5 & 3`           | `0b101 & 0b011`                  | `0b001`         | `1`              |
-| `|`      | Bitwise OR       | Sets each bit to 1 if at least one corresponding bit is 1. | `5 | 3`           | `0b101 | 0b011`                  | `0b111`         | `7`              |
-| `^`      | Bitwise XOR (Exclusive OR) | Sets each bit to 1 if bits are different.            | `5 ^ 3`           | `0b101 ^ 0b011`                  | `0b110`         | `6`              |
-| `~`      | Bitwise NOT      | Inverts all bits (flips 0s to 1s, 1s to 0s).       | `~5`              | `~0b101`                         | `0b...11111010` (depends on sign/representation) | `-6`             |
-| `<<`     | Left Shift       | Shifts bits left, filling with 0s on the right. Multiplies by powers of 2. | `5 << 1`          | `0b101 << 1`                     | `0b1010`        | `10`             |
-| `>>`     | Right Shift      | Shifts bits right, preserving sign (arithmetic shift). Divides by powers of 2. | `5 >> 1`          | `0b101 >> 1`                     | `0b010`         | `2`              |
-
-Let's break down each with examples:
-
-#### **`&` (Bitwise AND)**
-
-The result bit is 1 if *both* corresponding bits are 1. Otherwise, it's 0.
-
-```python
-a = 5  # Binary: 0101
-b = 3  # Binary: 0011
-result = a & b # Binary: 0001 (Decimal: 1)
-print(f"Decimal: {a} & {b} = {result}")      # Output: 5 & 3 = 1
-print(f"Binary: {bin(a)} & {bin(b)} = {bin(result)}") # Output: 0b101 & 0b11 = 0b1
-```
-
-#### **`|` (Bitwise OR)**
-
-The result bit is 1 if *at least one* of the corresponding bits is 1. Otherwise, it's 0.
-
-```python
-a = 5  # Binary: 0101
-b = 3  # Binary: 0011
-result = a | b # Binary: 0111 (Decimal: 7)
-print(f"Decimal: {a} | {b} = {result}")      # Output: 5 | 3 = 7
-print(f"Binary: {bin(a)} | {bin(b)} = {bin(result)}") # Output: 0b101 | 0b11 = 0b111
-```
-
-#### **`^` (Bitwise XOR - Exclusive OR)**
-
-The result bit is 1 if the corresponding bits are *different*. Otherwise, it's 0.
-
-```python
-a = 5  # Binary: 0101
-b = 3  # Binary: 0011
-result = a ^ b # Binary: 0110 (Decimal: 6)
-print(f"Decimal: {a} ^ {b} = {result}")      # Output: 5 ^ 3 = 6
-print(f"Binary: {bin(a)} ^ {bin(b)} = {bin(result)}") # Output: 0b101 ^ 0b11 = 0b110
-
-# XOR is great for swapping without temp variable, and for simple encryption/decryption
-val1 = 10 # 0b1010
-val2 = 7  # 0b0111
-
-val1 = val1 ^ val2 # val1 = 0b1010 ^ 0b0111 = 0b1101 (13)
-val2 = val1 ^ val2 # val2 = 0b1101 ^ 0b0111 = 0b1010 (10) (Original val1)
-val1 = val1 ^ val2 # val1 = 0b1101 ^ 0b1010 = 0b0111 (7) (Original val2)
-
-print(f"Swapped using XOR: val1={val1}, val2={val2}") # val1=7, val2=10
-```
-
-#### **`~` (Bitwise NOT)**
-
-This unary operator inverts all the bits of its operand. For positive integers `x`, `~x` is equivalent to `-(x + 1)`. This is due to how Python (and most systems) represents signed integers using two's complement.
-
-```python
-a = 5  # Binary: ...00000101
-result = ~a # Binary: ...11111010 (effectively -6)
-print(f"Decimal: ~{a} = {result}")      # Output: ~5 = -6
-print(f"Binary: ~{bin(a)} = {bin(result)}") # Output: ~0b101 = -0b110 (Python often shows negative binary as prefix -0b)
-
-b = -5 # Binary: ...11111011 (two's complement)
-result_b = ~b # Binary: ...00000100 (effectively 4)
-print(f"Decimal: ~{b} = {result_b}")    # Output: ~-5 = 4
-```
-
-#### **`<<` (Left Shift)**
-
-Shifts the bits of the left operand to the left by the number of positions specified by the right operand. Zeroes are filled in on the right. This is equivalent to multiplying the number by $2^{\\text{n}}$, where `n` is the shift amount.
-
-```python
-a = 5  # Binary: 0101
-result = a << 1 # Shift left by 1: 01010 (10)
-print(f"Decimal: {a} << 1 = {result}")      # Output: 5 << 1 = 10
-print(f"Binary: {bin(a)} << 1 = {bin(result)}") # Output: 0b101 << 1 = 0b1010
-
-print(f"5 << 2 = {5 << 2}") # 5 * 2^2 = 5 * 4 = 20 (0b10100)
-```
-
-#### **`>>` (Right Shift)**
-
-Shifts the bits of the left operand to the right by the number of positions specified by the right operand. For positive numbers, zeroes are filled in on the left. For negative numbers, Python performs an arithmetic right shift (sign bit is extended) to preserve the sign. This is equivalent to integer division by $2^{\\text{n}}$.
-
-```python
-a = 10 # Binary: 1010
-result = a >> 1 # Shift right by 1: 0101 (5)
-print(f"Decimal: {a} >> 1 = {result}")      # Output: 10 >> 1 = 5
-print(f"Binary: {bin(a)} >> 1 = {bin(result)}") # Output: 0b1010 >> 1 = 0b101
-
-b = -10 # Binary representation (two's complement): ...11110110
-result_b = b >> 1 # Shift right by 1: ...11111011 (-5)
-print(f"Decimal: {b} >> 1 = {result_b}")    # Output: -10 >> 1 = -5
-```
-
-*The uncompromising programmer understands that bit shifts are highly efficient for multiplication and division by powers of two, often outperforming traditional arithmetic for such specific operations.*
-
-#### **Bit Masking, Toggling, Shifting**
-
-Bitwise operations are powerful for manipulating specific bits or sets of bits within an integer.
-
-  * **Bit Masking (Checking if a bit is set):** Use `&` with a mask where only the desired bit is 1.
-
-    ```python
-    flags = 0b10110 # Example flags: ..._ _ 10110
-    # Let's say:
-    # Bit 0 (rightmost) = Feature A (1)
-    # Bit 1 = Feature B (0)
-    # Bit 2 = Feature C (1)
-    # Bit 3 = Feature D (1)
-    # Bit 4 = Feature E (0)
-
-    # Check if Feature C (bit 2) is enabled
-    FEATURE_C = 0b100 # Mask for bit 2 (which is 4 in decimal)
-    if (flags & FEATURE_C) != 0: # Or just `if flags & FEATURE_C:` since 0 is falsy
-        print("Feature C is enabled!") # Output: Feature C is enabled!
-
-    # Check if Feature B (bit 1) is enabled
-    FEATURE_B = 0b10  # Mask for bit 1 (which is 2 in decimal)
-    if (flags & FEATURE_B) != 0:
-        print("Feature B is enabled!")
-    else:
-        print("Feature B is disabled.") # Output: Feature B is disabled.
-    ```
-
-  * **Setting a Bit:** Use `|` with a mask where the desired bit is 1.
-
-    ```python
-    flags = 0b100 # Initial flags
-    print(f"Initial flags: {bin(flags)}") # 0b100
-
-    # Enable Feature A (bit 0)
-    FEATURE_A = 0b1
-    flags = flags | FEATURE_A
-    print(f"Flags after enabling Feature A: {bin(flags)}") # 0b101 (5)
-    ```
-
-  * **Clearing/Unsetting a Bit:** Use `&` with the bitwise NOT (`~`) of a mask.
-
-    ```python
-    flags = 0b10110 # Current flags
-    print(f"Initial flags: {bin(flags)}") # 0b10110
-
-    # Disable Feature C (bit 2)
-    FEATURE_C = 0b100
-    flags = flags & (~FEATURE_C) # Invert mask then AND
-    print(f"Flags after disabling Feature C: {bin(flags)}") # 0b10010 (18)
-    ```
-
-  * **Toggling a Bit:** Use `^` (XOR) with a mask.
-
-    ```python
-    flags = 0b1010 # Initial flags
-    print(f"Initial flags: {bin(flags)}") # 0b1010
-
-    # Toggle Feature B (bit 1)
-    FEATURE_B = 0b10
-    flags = flags ^ FEATURE_B
-    print(f"Flags after toggling Feature B (1st time): {bin(flags)}") # 0b1000 (8)
-
-    flags = flags ^ FEATURE_B
-    print(f"Flags after toggling Feature B (2nd time): {bin(flags)}") # 0b1010 (10)
-    ```
-
-#### **Use Cases: Permissions, Optimization, XOR Tricks**
-
-  * **Permissions/Flags:** This is a classic use case. Instead of storing many `True`/`False` variables, an integer can represent a set of permissions where each bit corresponds to a specific access right (e.g., read, write, execute).
-
-    ```python
-    READ  = 0b001 # 1
-    WRITE = 0b010 # 2
-    EXEC  = 0b100 # 4
-
-    user_permissions = READ | WRITE # User has read and write permissions (0b011 = 3)
-
-    if (user_permissions & READ):
-        print("User has read access.")
-    if (user_permissions & EXEC):
-        print("User has execute access.") # This won't print
-    ```
-
-  * **Optimization (Multiplication/Division by Powers of 2):** As mentioned, `<< n` is equivalent to `* (2**n)` and `>> n` is equivalent to `// (2**n)`. These bitwise operations can be significantly faster than general multiplication/division for fixed-power-of-2 factors, though modern Python interpreters and hardware often optimize arithmetic operations, reducing the practical performance difference for simple cases. Still, it's good to know for deep optimization.
-
-  * **XOR Tricks:**
-
-      * **Swapping two numbers without a temporary variable:** Demonstrated above.
-      * **Finding the unique element:** In an array where every element appears twice except for one, XORing all elements together will yield the unique element (since `x ^ x = 0` and `x ^ 0 = x`). This is a common interview question.
-
-#### **Binary Explanation Tools (`bin()`, Bit Positions)**
-
-  * **`bin(integer)`:** Returns the binary representation of an integer as a string prefixed with `0b`.
-
-    ```python
-    print(bin(42))     # Output: 0b101010
-    print(bin(-10))    # Output: -0b1010
-    ```
-
-  * **Understanding Bit Positions:**
-    Bits are numbered from right to left, starting at 0.
-    `... 2^3  2^2  2^1  2^0`
-    `... 8    4    2    1`
-    For `0b101`:
-
-      * Bit 0 is 1 (value $1 \\times 2^0 = 1$)
-      * Bit 1 is 0 (value $0 \\times 2^1 = 0$)
-      * Bit 2 is 1 (value $1 \\times 2^2 = 4$)
-        Sum: $1 + 0 + 4 = 5$.
-
-    To generate a mask for a specific bit `n` (which has value $2^n$), you can use `1 << n`.
-
-    ```python
-    # Mask for bit 0 (value 1)
-    print(f"Mask for bit 0: {bin(1 << 0)}") # 0b1
-
-    # Mask for bit 3 (value 8)
-    print(f"Mask for bit 3: {bin(1 << 3)}") # 0b1000
-    ```
-
-*The uncompromising programmer recognizes bitwise operators as powerful tools for specialized tasks, especially when dealing with low-level data representation, flags, or performance-critical numeric operations where powers of two are involved. They understand that while `bin()` helps visualize, the operations are truly mathematical manipulations of integer values.*
+  * **Binary (Base-2):** Our everyday numbers are base-10. Binary numbers use only two digits: 0 and 1. Each position represents a power of 2.
+      * `0b101` (binary) = `1 * 2^2 + 0 * 2^1 + 1 * 2^0` = `4 + 0 + 1 = 5` (decimal)
+  * **Python's `bin()`:** Use `bin()` to see the binary representation of an integer (e.g., `bin(5)` returns `'0b101'`).
+  * **Two's Complement for Negative Numbers:** Python integers are signed. Like most computer systems, Python uses **two's complement** to represent negative integers. This is crucial for understanding `~` (Bitwise NOT) and `>>` (Right Shift) with negative numbers.
+      * **How to get -X's two's complement:** Invert all bits of `X`'s binary representation, then add 1.
+      * **How to interpret a negative two's complement number:** If the leftmost bit is 1, it's negative. To find its magnitude, invert all its bits, then add 1.
+      * Example for a conceptual 8-bit system:
+          * `5` (decimal) = `0000 0101` (binary)
+          * `~5` (Bitwise NOT `5`):
+            1.  Invert all bits of `0000 0101` -\> `1111 1010` (This is the one's complement)
+            2.  In two's complement, `1111 1010` is interpreted as `-6`. (Verify: invert `1111 1010` -\> `0000 0101`, add 1 -\> `0000 0110`, which is 6. So the original was `-6`).
+            3.  This is why `~x` always results in `-(x + 1)`.
 
 -----
+
+#### **The Bitwise Operators: Explained with Practical Examples and Step-by-Step Binary**
+
+For clarity, we'll often use a simplified conceptual 8-bit representation for our binary examples, but remember Python integers have arbitrary precision and can grow much larger.
+
+-----
+
+##### **1. `&` (Bitwise AND)**
+
+  * **Definition:** Compares each bit position between two integers. If *both* corresponding bits are `1`, the result bit is `1`. Otherwise, the result bit is `0`.
+
+  * **Truth Table:** `1 & 1 = 1`, otherwise `0`.
+
+  * **Practical Use Case: Checking Permissions/Flags**
+    Imagine a system where user permissions are stored as a single integer, where each bit represents a specific right.
+
+      * `READ_PERMISSION = 0b001` (Bit 0)
+      * `WRITE_PERMISSION = 0b010` (Bit 1)
+      * `EXECUTE_PERMISSION = 0b100` (Bit 2)
+
+    <!-- end list -->
+
+    ```python
+    user_flags = 0b101  # User has READ (bit 0) and EXECUTE (bit 2) permissions (Decimal 5)
+    print(f"User flags (binary): {bin(user_flags)}")
+
+    # Checking if the user has READ_PERMISSION
+    print("\n--- Checking READ Permission ---")
+    mask_read = 0b001
+    has_read = (user_flags & mask_read) != 0 # (user_flags & mask_read) will be 0b001 (1) if READ is set, 0 (0b000) otherwise.
+    print(f"Is READ_PERMISSION set? {has_read}")
+    # Binary breakdown:
+    #   user_flags: 0b101
+    # & mask_read:  0b001
+    # ----------
+    #   Result:     0b001 (Decimal 1)
+    # Since 1 is truthy, `(1) != 0` is True.
+
+    # Checking if the user has WRITE_PERMISSION
+    print("\n--- Checking WRITE Permission ---")
+    mask_write = 0b010
+    has_write = (user_flags & mask_write) != 0
+    print(f"Is WRITE_PERMISSION set? {has_write}")
+    # Binary breakdown:
+    #   user_flags: 0b101
+    # & mask_write: 0b010
+    # ----------
+    #   Result:     0b000 (Decimal 0)
+    # Since 0 is falsy, `(0) != 0` is False.
+    ```
+
+  * **Why it works:** The `&` operator acts as a "filter" or "mask." By ANDing with a mask that has a `1` only at the bit position you care about, all other bits in the result will be `0`. If the targeted bit in the original number was `1`, the result will be non-zero (specifically, the mask value itself); otherwise, it will be `0`. This allows you to isolate and check the state of individual flags.
+
+-----
+
+##### **2. `|` (Bitwise OR)**
+
+  * **Definition:** Compares each bit position between two integers. If *at least one* of the corresponding bits is `1`, the result bit is `1`. Otherwise, the result bit is `0`.
+
+  * **Truth Table:** `0 | 0 = 0`, otherwise `1`.
+
+  * **Practical Use Case: Setting Permissions/Flags**
+    Continuing the permission example, use `|` to grant new permissions.
+
+    ```python
+    current_flags = 0b001 # User only has READ_PERMISSION (Decimal 1)
+    print(f"Current flags (binary): {bin(current_flags)}")
+
+    # Grant WRITE_PERMISSION to the user
+    print("\n--- Granting WRITE Permission ---")
+    WRITE_PERMISSION = 0b010
+    updated_flags = current_flags | WRITE_PERMISSION
+    print(f"Updated flags (binary): {bin(updated_flags)}") # Output: 0b11 (Decimal 3)
+    # Binary breakdown:
+    #   current_flags: 0b001
+    # | WRITE_PERMISSION: 0b010
+    # ----------------
+    #   Result:          0b011 (Decimal 3)
+
+    # Now, add EXECUTE_PERMISSION
+    print("\n--- Granting EXECUTE Permission ---")
+    EXECUTE_PERMISSION = 0b100
+    final_flags = updated_flags | EXECUTE_PERMISSION
+    print(f"Final flags (binary): {bin(final_flags)}") # Output: 0b111 (Decimal 7)
+    # Binary breakdown:
+    #   updated_flags:  0b011
+    # | EXECUTE_PERMISSION: 0b100
+    # -----------------
+    #   Result:           0b111 (Decimal 7)
+    ```
+
+  * **Why it works:** The `|` operator acts as a "combiner." By ORing with a mask that has a `1` at the desired bit position, that bit in the result will be set to `1` (regardless of its original state), while other bits remain unchanged. This effectively "grants" or "adds" permissions/flags.
+
+-----
+
+##### **3. `^` (Bitwise XOR - Exclusive OR)**
+
+  * **Definition:** Compares each bit position. If the corresponding bits are *different* (`0` and `1`, or `1` and `0`), the result bit is `1`. If they are the *same* (`0` and `0`, or `1` and `1`), the result bit is `0`.
+
+  * **Truth Table:** `0 ^ 0 = 0`, `0 ^ 1 = 1`, `1 ^ 0 = 1`, `1 ^ 1 = 0`.
+
+  * **Practical Use Case 1: Toggling Flags**
+    XOR is perfect for flipping the state of a bit.
+
+    ```python
+    user_settings = 0b1010 # Assume bit 1 is 'Notifications Enabled', bit 3 is 'Dark Mode Enabled'
+    NOTIFICATIONS_FLAG = 0b0010
+    DARK_MODE_FLAG = 0b1000
+
+    print(f"Initial settings: {bin(user_settings)}") # 0b1010
+
+    # Toggle Notifications (currently enabled, bit 1 is 1)
+    print("\n--- Toggling Notifications ---")
+    user_settings = user_settings ^ NOTIFICATIONS_FLAG
+    print(f"Settings after toggle 1: {bin(user_settings)}") # 0b1000 (Notifications now disabled)
+    # Binary breakdown (bit 1 is 1 ^ 1 = 0, others unchanged):
+    #   0b1010
+    # ^ 0b0010
+    # --------
+    #   0b1000
+
+    # Toggle Notifications again (currently disabled, bit 1 is 0)
+    print("\n--- Toggling Notifications Again ---")
+    user_settings = user_settings ^ NOTIFICATIONS_FLAG
+    print(f"Settings after toggle 2: {bin(user_settings)}") # 0b1010 (Notifications now enabled again)
+    # Binary breakdown (bit 1 is 0 ^ 1 = 1, others unchanged):
+    #   0b1000
+    # ^ 0b0010
+    # --------
+    #   0b1010
+    ```
+
+  * **Why it works:** The XOR operator has the property that `X ^ 1 = ~X` (flips X) and `X ^ 0 = X` (leaves X unchanged). So, XORing with a mask allows you to flip only the bits where the mask has a `1`.
+
+  * **Practical Use Case 2: Swapping Two Numbers Without a Temporary Variable**
+    This is a classic bitwise trick, often seen in interview questions. While `a, b = b, a` is Pythonic, XOR swap works in languages without tuple unpacking.
+
+    ```python
+    x = 10 # 0b1010
+    y = 7  # 0b0111
+    print(f"Before swap: x={x}, y={y}")
+
+    x = x ^ y # Step 1: x now holds combined info
+    # Binary: 0b1010 ^ 0b0111 = 0b1101 (Decimal 13)
+    print(f"x after x ^ y: {x} ({bin(x)})")
+
+    y = x ^ y # Step 2: y now gets original x's value
+    # Binary: 0b1101 ^ 0b0111 = 0b1010 (Decimal 10) -> This is the original value of x!
+    print(f"y after x ^ y: {y} ({bin(y)})")
+
+    x = x ^ y # Step 3: x now gets original y's value
+    # Binary: 0b1101 ^ 0b1010 = 0b0111 (Decimal 7) -> This is the original value of y!
+    print(f"x after x ^ y: {x} ({bin(x)})")
+
+    print(f"After XOR swap: x={x}, y={y}") # Output: x=7, y=10
+    ```
+
+  * **Why it works:** The trick relies on the properties: `A ^ B ^ B = A` and `A ^ 0 = A`.
+
+    1.  `x = x ^ y`: `x` now holds bits where `x` and `y` differ.
+    2.  `y = x ^ y`: This becomes `(old_x ^ old_y) ^ old_y`. Since `old_y ^ old_y = 0`, this simplifies to `old_x ^ 0 = old_x`. So, `y` effectively gets the original value of `x`.
+    3.  `x = x ^ y`: This becomes `(old_x ^ old_y) ^ old_x`. Since `old_x ^ old_x = 0`, this simplifies to `old_y ^ 0 = old_y`. So, `x` effectively gets the original value of `y`.
+
+-----
+
+##### **4. `~` (Bitwise NOT / One's Complement)**
+
+  * **Definition:** A unary operator that inverts every bit of its operand. `0`s become `1`s, and `1`s become `0`s.
+
+  * **Mathematical Equivalence:** For any integer `x`, `~x` is equivalent to `-(x + 1)`.
+
+  * **Practical Use Case: Creating an Inverse Mask for Clearing Bits**
+    We used this in the earlier example to clear a specific bit.
+
+    ```python
+    data_byte = 0b10110110 # Example data (Decimal 182)
+    print(f"Original data: {bin(data_byte)}")
+
+    # We want to clear (set to 0) the 3rd bit (0-indexed, so 2^3 = 8, or 0b1000)
+    CLEAR_BIT_MASK = 0b0001000 # Mask for the 3rd bit (Decimal 8)
+
+    # To clear the bit, we AND with a mask that has 0 at the target bit and 1s everywhere else.
+    # We can get this by NOTing our clear bit mask.
+    inverse_mask = ~CLEAR_BIT_MASK
+    print(f"CLEAR_BIT_MASK: {bin(CLEAR_BIT_MASK)}")
+    print(f"Inverse mask:   {bin(inverse_mask)}") # Notice the leading ones for negative numbers
+
+    # Apply the inverse mask
+    result = data_byte & inverse_mask
+    print(f"Result (binary): {bin(result)}") # Output: 0b10100110 (Decimal 166)
+    # Binary breakdown (conceptually, for a positive value interpretation):
+    #   Original data:  10110110
+    # & Inverse Mask:   11110111 (This is ~00001000, assuming fixed bits for visualization)
+    # ------------------
+    #   Result:         10100110 (Bit 3 is now 0)
+
+    # Let's verify with simpler numbers
+    num = 5   # 0b101
+    not_num = ~num
+    print(f"~{num} = {not_num}") # Output: ~5 = -6
+    # Why?
+    # 1. 5 in binary (conceptually): ...00000101
+    # 2. Invert all bits:             ...11111010 (This is the two's complement representation of -6)
+    # 3. Python interprets this two's complement value as -6.
+    ```
+
+  * **Why it works:** `~` is the one's complement. When used with `&`, `X & (~M)` effectively clears the bits in `X` where `M` has a `1`, because `M & (~M)` will be all `0`s. For its direct numerical result, the two's complement system makes `~x` equal to `-(x+1)`.
+
+-----
+
+##### **5. `<<` (Left Shift)**
+
+  * **Definition:** Shifts the bits of the left operand to the left by `n` positions. `n` new `0` bits are introduced on the right side.
+
+  * **Mathematical Equivalence:** `x << n` is equivalent to $x \\times 2^n$.
+
+  * **Practical Use Case: Fast Multiplication by Powers of 2**
+    When multiplying by 2, 4, 8, 16, etc., left shifting is extremely efficient.
+
+    ```python
+    value = 7 # 0b0111
+    print(f"Original value: {value} ({bin(value)})")
+
+    # Multiply by 2 (shift left by 1)
+    result_mul_2 = value << 1
+    print(f"Value << 1: {result_mul_2} ({bin(result_mul_2)})") # Output: 14 (0b1110)
+    # Binary breakdown:
+    # Original:  0b0111
+    # Shift << 1: 0b1110 (a zero is added to the right)
+    # 1 * 8 + 1 * 4 + 1 * 2 + 0 * 1 = 8 + 4 + 2 = 14
+
+    # Multiply by 8 (shift left by 3, since 8 = 2^3)
+    result_mul_8 = value << 3
+    print(f"Value << 3: {result_mul_8} ({bin(result_mul_8)})") # Output: 56 (0b111000)
+    # Binary breakdown:
+    # Original:  0b0111
+    # Shift << 3: 0b111000 (three zeros added to the right)
+    # 1 * 32 + 1 * 16 + 1 * 8 = 32 + 16 + 8 = 56
+    ```
+
+  * **Why it works:** In any base-B number system, multiplying by B shifts all digits one position to the left and adds a zero. Since binary is base-2, shifting left by one position is equivalent to multiplying by 2. Shifting by `n` positions is multiplying by `2^n`.
+
+-----
+
+##### **6. `>>` (Right Shift)**
+
+  * **Definition:** Shifts the bits of the left operand to the right by `n` positions.
+
+  * **Mathematical Equivalence:** `x >> n` is equivalent to `x // (2**n)` (floor division).
+
+  * **Crucial Detail: Arithmetic Right Shift (Python's behavior for signed integers)**
+    When shifting right, new bits need to be filled on the left.
+
+      * **Logical Right Shift (for unsigned):** Fills with `0`s on the left.
+      * **Arithmetic Right Shift (Python's default for signed integers):** Fills with the value of the *original sign bit* (0 for positive, 1 for negative). This preserves the sign of the number, making it consistent with floor division.
+
+  * **Practical Use Case: Fast Integer Division by Powers of 2**
+
+    ```python
+    value_pos = 14 # 0b1110
+    print(f"Original positive value: {value_pos} ({bin(value_pos)})")
+
+    # Divide by 2 (shift right by 1)
+    result_div_2 = value_pos >> 1
+    print(f"Positive Value >> 1: {result_div_2} ({bin(result_div_2)})") # Output: 7 (0b111)
+    # Binary breakdown:
+    # Original:  0b1110
+    # Shift >> 1: 0b0111 (a zero is added to the left to preserve magnitude)
+    # 0 * 8 + 1 * 4 + 1 * 2 + 1 * 1 = 4 + 2 + 1 = 7
+
+    value_neg = -14 # Conceptually: ...11110010 (Two's Complement)
+    print(f"Original negative value: {value_neg} ({bin(value_neg)})")
+
+    # Divide by 2 (shift right by 1)
+    result_neg_div_2 = value_neg >> 1
+    print(f"Negative Value >> 1: {result_neg_div_2} ({bin(result_neg_div_2)})") # Output: -7 (0b...11111001)
+    # Binary breakdown (Conceptual 8-bit for clarity, Python uses arbitrary precision):
+    # Original: -14 is 1111 0010
+    # Shift >> 1 (Arithmetic Shift, extend sign bit '1'): 1111 1001
+    # Interpret 1111 1001 (two's complement):
+    # 1. It's negative (leading 1).
+    # 2. Invert: 0000 0110
+    # 3. Add 1: 0000 0111 (which is 7).
+    # So, 1111 1001 represents -7. This matches floor division: -14 // 2 = -7.
+    ```
+
+  * **Why it works:** Shifting right by `n` positions is equivalent to integer division by `2^n`. The arithmetic right shift is crucial for negative numbers because it ensures the result correctly corresponds to Python's floor division behavior, rounding towards negative infinity.
+
+-----
+
+#### **Why and When to Use Bitwise Operators**
+
+  * **Memory Efficiency:** Packing multiple boolean flags into a single integer saves memory, which can be critical in very large data structures or embedded systems.
+  * **Performance Optimization:** For operations involving multiplication or division by powers of two, bit shifts are often faster at the hardware level than generic arithmetic operations. While Python's high-level nature sometimes masks this, it can still be relevant in performance-critical loops.
+  * **Atomic Operations:** Reading, setting, or clearing flags in a single bitwise operation can be atomic on certain architectures, which is important in concurrent programming to prevent race conditions (though Python's GIL often simplifies this for single-process concurrency).
+  * **Low-Level System Interaction:** Essential for programming device drivers, manipulating hardware registers, or processing data from network protocols where information is tightly packed into bits and bytes.
+  * **Specific Algorithms:**
+      * **Hashing/Checksums:** Many algorithms rely on bitwise rotations, shifts, and XORs to mix data thoroughly.
+      * **Graphics:** Manipulating individual color components within a pixel (e.g., RGB values packed into an integer).
+      * **Error Detection/Correction:** Simple parity checks or more complex ECC (Error-Correcting Code) schemes use XOR.
+      * **Competitive Programming:** Bitwise tricks are common for optimizing algorithms involving subsets, combinations, or graph traversals.
+
+*The uncompromising programmer understands that bitwise operators are not a daily tool for most applications, but when the problem domain touches on low-level data representation, extreme performance, or specific algorithms, they become indispensable. They demystify their behavior by always thinking in terms of bits and two's complement.*
