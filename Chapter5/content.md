@@ -91,16 +91,17 @@ Flowcharts are visual diagrams that represent the steps and decisions in a proce
 
 
 ```mermaid
-graph TD
-    A[Start] --> B(Input Number)
+flowchart TD
+    A(Start) --> B(Input Number)
     B --> C{Number > 0?}
-    C -- Yes --> D[Print "Positive"]
-    C -- No --> E{Number < 0?}
-    E -- Yes --> F[Print "Negative"]
-    E -- No --> G[Print "Zero"]
+    C -->|Yes| D(Print Positive)
+    C -->|No| E{Number < 0?}
+    E -->|Yes| F(Print Negative)
+    E -->|No| G(Print Zero)
     D --> H(End)
     F --> H
     G --> H
+
 ```
 
 **Mapping to Python `if/elif/else` Code:**
