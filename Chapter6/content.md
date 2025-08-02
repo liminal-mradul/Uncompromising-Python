@@ -747,3 +747,187 @@ for i in reversed(range(6)):
 ```
 
 The `reversed()` function works on any sequence or iterable, making it a versatile and declarative way to indicate a reverse iteration.
+
+### 6.7 Nested Loops
+
+A **nested loop** is a loop that exists within the body of another loop. This structure is one of the most fundamental concepts in programming, used to handle multi-dimensional data, generate combinations, and perform complex comparisons. The inner loop's code block is executed completely for every single iteration of the outer loop.
+
+#### General Syntax
+
+The syntax for a nested loop is abstract, as it applies to any combination of loop types (`for` and `while`). The key is the indentation, which defines the hierarchy of the loops.
+
+```
+Outer Loop (condition/iterable):
+    # This code runs once per outer loop iteration.
+
+    Inner Loop (condition/iterable):
+        # This code runs repeatedly for each single outer loop iteration.
+
+    # This code runs after the inner loop finishes for the current
+    # outer loop iteration.
+```
+
+For every single iteration of the outer loop, the inner loop is fully completed. If the outer loop runs 3 times and the inner loop runs 4 times, the inner code block will execute a total of $3 \\times 4 = 12$ times.
+
+### Closed-Form Formula for Nested Loop Iterations
+
+The total number of iterations for a set of nested loops is the product of the number of iterations for each individual loop.
+
+Let's assume you have $k$ nested loops.
+
+  - Let the number of iterations for the outermost loop be $N\_1$.
+  - Let the number of iterations for the next loop be $N\_2$.
+  - ...and so on, up to the innermost loop, with $N\_k$ iterations.
+
+The total number of times the innermost code block will execute, denoted as $T$, is given by the formula:
+
+$$T = N_1 \times N_2 \times N_3 \times \dots \times N_k = \prod_{i=1}^{k} N_i$$
+
+**Example:**
+If you have three nested loops, each iterating 5 times (`for i in range(5):` and so on), the number of iterations is:
+$T = 5 \\times 5 \\times 5 = 125$
+
+This formula applies to any number of nested loops, giving you a precise count of the total work being done by the innermost loop's code.
+
+#### Specific Examples of Nested Loop Types
+
+**1. Nested `for` Loops:** The most common and idiomatic pattern. It's ideal for definite iteration, such as processing every item in a matrix or generating all possible combinations.
+
+```python
+colors = ["red", "green"]
+sizes = ["small", "medium", "large"]
+
+# Outer loop iterates through colors
+for color in colors:
+    # Inner loop iterates through sizes for EACH color
+    for size in sizes:
+        print(f"Item: {color} {size}")
+```
+
+**2. Nested `while` Loops:** This pattern is used when both the outer and inner loops are controlled by a state or a condition rather than a fixed iterable.
+
+```python
+outer_count = 0
+while outer_count < 3:
+    print(f"Outer loop iteration: {outer_count}")
+    inner_count = 0
+    while inner_count < 2:
+        print(f"  Inner loop iteration: {inner_count}")
+        inner_count += 1
+    outer_count += 1
+```
+
+**3. Mixed `for` and `while` Loops:** This demonstrates the flexibility to combine loop types based on the problem's needs. You can iterate through a definite list of items with a `for` loop and perform an indefinite, condition-based action on each item with a `while` loop.
+
+```python
+tasks = ["Download", "Process", "Upload"]
+
+# Outer loop for definite tasks
+for task in tasks:
+    print(f"Starting {task} task.")
+    progress = 0
+    # Inner loop for indefinite progress
+    while progress < 100:
+        progress += 20 # Simulating progress
+        print(f"  Progress: {progress}%")
+    print(f"Finished {task} task.")
+```
+
+#### Common Use Cases
+
+  * **Cartesian Products (Combinations):** Generating all unique pairs from two or more lists, as seen in the `colors` and `sizes` example.
+```python
+colors = ["red", "green", "blue"]
+sizes = ["small", "large"]
+
+print("Generating all color-size combinations:")
+for color in colors:
+    for size in sizes:
+        print(f"Item: {color} {size}")
+
+# Output:
+# Generating all color-size combinations:
+# Item: red small
+# Item: red large
+# Item: green small
+# Item: green large
+# Item: blue small
+# Item: blue large
+```
+
+*Note: For a more Pythonic and efficient approach in real-world code, you would use `itertools.product()`.*
+
+        
+  * **Multi-dimensional Data Traversal:** Processing every element in a 2D list (matrix) or a grid-based game board.
+```python
+matrix = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+print("Traversing the 2D matrix:")
+# Outer loop iterates through each row (sub-list)
+for row in matrix:
+    # Inner loop iterates through each element in the current row
+    for element in row:
+        print(element, end=" ")
+    print() # New line after each row
+# Output:
+# Traversing the 2D matrix:
+# 1 2 3
+# 4 5 6
+# 7 8 9
+```
+  * **Exhaustive Search and Comparisons:** Checking for duplicates in a list by comparing every item with every other item.
+```python
+my_list = [10, 20, 30, 20, 40]
+has_duplicates = False
+
+# Outer loop iterates from the first element
+for i in range(len(my_list)):
+    # Inner loop iterates from the NEXT element to avoid self-comparison
+    for j in range(i + 1, len(my_list)):
+        # Compare element at index i with element at index j
+        if my_list[i] == my_list[j]:
+            print(f"Duplicate found! {my_list[i]} at index {i} and {j}")
+            has_duplicates = True
+            break # Break the inner loop
+    if has_duplicates:
+        break # Break the outer loop as well
+
+# Output:
+# Duplicate found! 20 at index 1 and 3
+```
+
+
+
+-----
+
+🧠 **Practice Box: Nested Loop Challenges**
+
+**Challenge 1: Print the multiplication table**
+Use nested loops to print a multiplication table for numbers from 1 to 10. The output should be neatly formatted, with each row representing the multiples of a number.
+
+```python
+# Hint: An outer loop for the multiplier and an inner loop for the multiplicand.
+for i in range(1, 11):
+    for j in range(1, 11):
+        print(i * j, end="\t")
+    print()
+```
+
+**Challenge 2: Simulate a chessboard with coordinates**
+Simulate a chessboard and print its coordinates from `a1` to `h8`. The columns should be represented by letters (`a` to `h`) and the rows by numbers (`1` to `8`).
+
+```python
+# Hint: The outer loop for rows (1-8), the inner loop for columns ('a'-'h').
+for row in range(1, 9):
+    for col in range(8): # 8 columns from 0 to 7
+        column_letter = chr(ord('a') + col)
+        print(f"{column_letter}{row}", end=" ")
+    print()
+```
+
+
+
