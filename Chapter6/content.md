@@ -785,7 +785,7 @@ $$T = N_1 \times N_2 \times N_3 \times \dots \times N_k = \prod_{i=1}^{k} N_i$$
 
 **Example:**
 If you have three nested loops, each iterating 5 times (`for i in range(5):` and so on), the number of iterations is:
-$T = 5 \\times 5 \\times 5 = 125$
+$T = 5 \times 5 \times 5 = 125$
 
 This formula applies to any number of nested loops, giving you a precise count of the total work being done by the innermost loop's code.
 
