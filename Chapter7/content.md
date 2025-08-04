@@ -598,3 +598,218 @@ print(f"Final average: {average}")
 For completeness, it's worth briefly noting the distinction between `return` and a more advanced keyword, `yield`. While `return` exits a function completely and hands back a final value, `yield` pauses a function's execution, hands back a value, and then waits to be resumed. This mechanism is used to create **generators** and will be covered in detail in a later chapter on iteration.
 
 `return` is for a single, final result. `yield` is for a sequence of results, one at a time.
+
+----- 
+
+### 7.5 Variable Scope and The LEGB Rule
+
+Variable scope in Python defines where a name is accessible. It is governed by a strict hierarchy known as the LEGB rule, which dictates the order in which the interpreter resolves a name. Understanding this mechanism is crucial for avoiding common bugs and writing predictable code.
+
+The LEGB rule stands for:
+
+  * **L: Local**
+  * **E: Enclosing**
+  * **G: Global**
+  * **B: Built-in**
+
+Python searches for a variable in these four scopes sequentially, from the most specific to the most general.
+
+#### The LEGB Search Order in Detail
+
+**1. Local (L) Scope:**
+This is the innermost scope. Variables defined inside a function's body or as its parameters are local. They exist only for the duration of the function's execution and are destroyed upon its return.
+
+```python
+def my_function(param):
+    local_var = 10
+    return param + local_var
+
+# 'local_var' is not accessible here
+# print(local_var) # NameError
+```
+
+**2. Enclosing (E) Scope:**
+This scope applies to nested functions. Variables defined in an outer function's scope are in the enclosing scope for any functions nested within it. The inner function can read these variables.
+
+```python
+def outer_function():
+    enclosing_var = "I'm in the outer scope."
+
+    def inner_function():
+        # 'inner_function' can access 'enclosing_var'
+        print(enclosing_var)
+    
+    inner_function()
+```
+
+**3. Global (G) Scope:**
+This is the top-level scope of a module (a Python file). Variables defined outside of all functions are global and can be read by any function within that module.
+
+```python
+global_var = "I'm global."
+
+def read_global():
+    # A function can read a global variable without any special keyword.
+    print(global_var)
+```
+
+**4. Built-in (B) Scope:**
+The final scope is for Python's predefined names, such as `len()`, `print()`, `True`, and `False`. These are always available for use.
+
+#### The `global` and `nonlocal` Directives
+
+By default, an assignment to a variable within a function creates a new local variable. To modify a variable in an outer scope, you must use a specific directive.
+
+  * **`global`:** Declares that an assignment statement is intended to modify a variable in the global scope. This is a side effect that breaks function encapsulation and should be used cautiously.
+
+    ```python
+    counter = 0
+
+    def increment_global():
+        global counter
+        counter += 1
+
+    increment_global()
+    print(counter) # Output: 1
+    ```
+
+  * **`nonlocal`:** Declares that an assignment statement is intended to modify a variable in the nearest enclosing scope. It is essential for closures that need to maintain and update state.
+
+    ```python
+    def make_counter():
+        count = 0
+        def increment():
+            nonlocal count
+            count += 1
+            return count
+        return increment
+
+    counter_func = make_counter()
+    print(counter_func()) # Output: 1
+    ```
+
+#### Shadowing Variables: A Pitfall to Avoid
+
+Shadowing occurs when a local variable has the same name as a variable in an outer scope. The local variable "shadows" or hides the outer one, making it inaccessible within the function.
+
+```python
+global_name = "Global"
+
+def show_name():
+    global_name = "Local" # This is a new local variable that shadows the global one
+    print(f"Inside the function, the name is: {global_name}")
+
+show_name()
+# Output: Inside the function, the name is: Local
+print(f"Outside the function, the name is: {global_name}")
+# Output: Outside the function, the name is: Global
+```
+
+This can lead to hard-to-find bugs if you accidentally use a variable name that already exists in a wider scope.
+
+-----
+
+
+### 📦 Under the Hood: The Stack Frame Mechanism
+
+The LEGB rule is implemented by the Python interpreter using **stack frames**.
+
+1.  **Stack Frame:** A stack frame is a data structure (effectively a dictionary) that holds a function's local variables, parameters, and other state information. It represents the function's private namespace.
+2.  **Call Stack:** When a function is called, a new stack frame is created and pushed onto a stack. The call stack tracks the sequence of active functions.
+3.  **Name Resolution:** When a variable is accessed, the interpreter first checks the current function's stack frame (Local). If the name isn't found, it walks up the call stack, checking the frame of the enclosing function (Enclosing), then the module's global namespace, and finally the built-in namespace.
+4.  **Frame Lifespan:** When a function returns, its stack frame is popped off the call stack, and all its local variables are destroyed. This mechanism ensures that a function's scope is properly isolated and managed.
+
+-----
+
+### 7.6 Closures: Functions with a Memory
+
+A core principle of function execution is that a function's local scope is destroyed as soon as the function returns. A **closure** is a special function that defies this rule. A closure is a nested function that remembers and retains access to variables from its parent, or **enclosing**, scope even after the parent function has completed its execution. This gives the inner function a persistent, private memory of its creation context.
+
+#### The Mechanics of a Closure
+
+A closure is created when the following three conditions are met:
+
+1.  There is a nested function (a function defined inside another function).
+2.  The nested function refers to a variable from its enclosing function's scope.
+3.  The outer function returns the nested function object itself.
+
+Let's trace this with a classic example: a "function factory."
+
+```python
+def make_multiplier(factor):
+    # 'factor' is a local variable of 'make_multiplier'
+    
+    def multiplier(number):
+        # 'multiplier' refers to 'factor' from its enclosing scope
+        return number * factor
+    
+    # 'make_multiplier' returns the inner function object, not its result
+    return multiplier
+
+# Step 1: Call the outer function.
+# The 'factor' variable is created in make_multiplier's scope.
+double_it = make_multiplier(2)
+
+# Step 2: The outer function finishes, and its scope is destroyed.
+# The 'double_it' variable now holds the 'multiplier' function object.
+
+# Step 3: Call the returned function object.
+# The inner function, 'double_it', has "closed over" the 'factor' variable,
+# retaining access to its value (which is 2).
+print(double_it(5)) # Output: 10
+print(double_it(10)) # Output: 20
+```
+
+This is a powerful concept. The `double_it` function is not just a copy of the `multiplier` logic; it is a specialized instance of that logic, permanently bound to the value `2`.
+
+#### Real-World Uses of Closures
+
+Closures are not just a theoretical curiosity; they are a fundamental building block for many advanced Python patterns.
+
+  * **Function Factories:** This is the pattern seen above. You can create a family of specialized functions from a single, general template. For instance, you could create functions to generate HTML tags, each with a different tag name.
+  * **Decorators:** Closures are the foundation of decorators. A decorator is a function that takes another function as an argument, wraps it in an inner function (the closure), and returns the wrapper. The wrapper "closes over" the original function, allowing it to perform actions before, after, or around the original function's call.
+  * **Callbacks and Event Handlers:** In graphical user interface (GUI) or asynchronous programming, closures are often used to create callback functions that need access to some contextual data from when they were created.
+
+#### Closure vs. Object-Based State: A Comparison
+
+Closures provide a way to maintain state, which is also the primary purpose of an object (a class instance). This often leads to the question of when to use one over the other.
+
+**Closure-Based State:**
+
+  * **Structure:** Encapsulates state within a nested function's scope.
+  * **Usage:** Ideal for simple state management that involves only a single function's behavior. The syntax is lightweight and feels more "functional."
+  * **Example:** A simple counter function that holds its state in a variable from its enclosing scope.
+
+<!-- end list -->
+
+```python
+def make_counter():
+    count = 0
+    def increment():
+        nonlocal count
+        count += 1
+        return count
+    return increment
+```
+
+**Object-Based State:**
+
+  * **Structure:** Encapsulates state within a class instance's attributes (`self.attribute`). State is managed by methods defined on the class.
+  * **Usage:** Best for more complex state that involves multiple related methods and properties. The object-oriented approach scales better for rich data models.
+  * **Example:** A counter implemented as a class with a method to increment its state.
+
+<!-- end list -->
+
+```python
+class Counter:
+    def __init__(self):
+        self.count = 0
+    def increment(self):
+        self.count += 1
+        return self.count
+```
+
+While both patterns solve the problem of persistent state, closures offer a lightweight, function-oriented alternative that is particularly idiomatic in Python for single-purpose, stateful functions.
+
+-----
+
