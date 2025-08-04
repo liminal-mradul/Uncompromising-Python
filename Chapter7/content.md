@@ -940,3 +940,112 @@ The ability to treat functions as objects is not just a clever trick; it's a fun
   * **Powerful Patterns:** First-class functions are the foundation for advanced patterns like **decorators** (which wrap a function to add new functionality) and **functional programming** paradigms.
 
 By treating functions as objects, Python empowers you to write highly modular, expressive, and dynamic code that can be easily extended and composed.
+
+-----
+
+### 7.8 Lambda Functions: Small, Anonymous Functions
+
+Building on the concept of first-class functions, Python provides a special syntax for creating small, single-expression functions on the fly: the `lambda` function. Often referred to as "anonymous functions" because they lack a formal name, lambdas are a concise tool for situations where a simple function is needed for a brief, one-off task.
+
+The primary purpose of a lambda is not to replace full-fledged `def` functions but to serve as a convenient shorthand for simple operations, typically when passed as an argument to a higher-order function like `sorted()`, `map()`, or `filter()`.
+
+#### Syntax and Structure
+
+The syntax of a lambda function is designed for brevity and is limited to a single logical line. It consists of the `lambda` keyword, followed by one or more arguments, a colon, and a single expression.
+
+**Syntax:** `lambda arguments: expression`
+
+A key difference from a `def` function is that a lambda function's body must be a single expression. It implicitly returns the result of this expression without a `return` keyword. This single-expression rule is the source of both a lambda's power and its limitations.
+
+**Comparison with a standard `def` function:**
+
+```python
+# A regular, named function
+def add_one(x):
+    return x + 1
+
+# The lambda equivalent
+add_one_lambda = lambda x: x + 1
+
+print("--- Lambda vs. Def Function ---")
+print(f"Def function result: {add_one(5)}")
+print(f"Lambda function result: {add_one_lambda(5)}")
+```
+
+#### When Lambdas Improve Clarity vs. When They Harm It
+
+Using a lambda function is a matter of style and a trade-off between conciseness and readability.
+
+**When to use a lambda (Clarity):**
+Lambdas shine when they are simple and used as an inline argument. This often results in more readable code by keeping the function's logic close to where it's being used, eliminating the need to define a separate, named function that may only be used once.
+
+**When to avoid a lambda (Readability):**
+Because a lambda is limited to a single expression, complex logic can quickly make it unreadable. Any lambda that uses multiple conditional statements, loops, or is difficult to understand at a glance should be replaced with a traditional `def` function.
+
+**Example of a bad lambda:**
+
+```python
+# This lambda is too complex and difficult to read.
+# A 'def' function would be much clearer.
+bad_lambda = lambda x: 'Even' if x % 2 == 0 else 'Odd'
+```
+
+#### The Canonical Use Case: Pairing with Higher-Order Functions
+
+The true power of lambda functions becomes apparent when they are paired with higher-order functions that accept a function as an argument.
+
+##### 1\. Using with `sorted()`
+
+`sorted()` is a function that returns a new, sorted list from the items in an iterable. The optional `key` argument accepts a function that is used to define the sorting criteria. This is one of the most common and effective use cases for lambda.
+
+```python
+students = [
+    {'name': 'Alice', 'score': 88},
+    {'name': 'Bob', 'score': 95},
+    {'name': 'Charlie', 'score': 72}
+]
+
+print("\n--- Sorting with a Lambda ---")
+# Sort the list of dictionaries by the 'score' key.
+# The lambda function tells sorted() how to get the value to sort by.
+sorted_by_score = sorted(students, key=lambda student: student['score'])
+print("Sorted by score:", sorted_by_score)
+```
+
+##### 2\. Using with `map()`
+
+`map()` applies a given function to every item in an iterable and returns a new iterable with the results. Lambdas are perfect for providing a simple transformation function.
+
+```python
+numbers = [1, 2, 3, 4]
+
+print("\n--- Using Lambda with map() ---")
+# Use map() to create an iterable of squared numbers.
+# The lambda provides the squaring operation.
+squared_numbers_map = list(map(lambda x: x**2, numbers))
+print("Squared numbers (map):", squared_numbers_map)
+```
+
+##### 3\. Using with `filter()`
+
+`filter()` constructs an iterable from elements of another iterable for which a function returns true. A lambda function is an ideal tool for providing a quick, one-off filtering condition.
+
+```python
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+print("\n--- Using Lambda with filter() ---")
+# Use filter() to create an iterable of only the even numbers.
+# The lambda provides the condition to filter by.
+even_numbers_filter = list(filter(lambda x: x % 2 == 0, numbers))
+print("Even numbers (filter):", even_numbers_filter)
+```
+
+#### Summary and Best Practices
+
+  - **Concise Syntax:** Lambdas offer a way to create simple functions in a single line, making the code more compact.
+  - **Anonymity:** They are anonymous, which makes them perfect for throwaway functions that are only used once.
+  - **Single Expression:** The limitation to a single expression is a feature, not a bug, as it forces the lambda to remain simple and readable.
+  - **Primary Use Case:** They are most effective when paired with higher-order functions like `map()`, `filter()`, `sorted()`, and in the `key` argument for list sorting.
+  - **Readability First:** If a lambda's logic becomes too complex to understand at a glance, always opt for a traditional, named `def` function for better maintainability.
+
+-----
